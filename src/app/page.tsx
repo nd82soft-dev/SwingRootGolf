@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Home() {
   return (
@@ -7,8 +8,15 @@ export default function Home() {
       <header className="fixed top-0 w-full z-50 glass-panel border-b-0 border-b-white/5 bg-[#0E0F12]/80">
         <div className="container mx-auto px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-[#6B9B78] rounded-lg flex items-center justify-center text-[#0E0F12] font-bold text-xl">S</div>
-            <span className="font-bold text-xl tracking-tight text-white">SwingRoot</span>
+            <Link href="/" className="relative w-40 h-10">
+              <Image
+                src="/logo.png"
+                alt="SwingRoot Logo"
+                fill
+                className="object-contain object-left"
+                priority
+              />
+            </Link>
           </div>
           <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-[#8A8A8E]">
             <Link href="#how-it-works" className="hover:text-white transition-colors">How It Works</Link>
