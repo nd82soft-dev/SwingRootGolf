@@ -16,6 +16,8 @@ export type DrillData = {
     steps: string[];
     checkpoints: string[];
     mistakes: string[];
+    progression: { level: string; task: string }[];
+    contraindications: string[];
     prescription: string[];
     externalLink?: string; // YouTube or Article link
     // --- NORMALIZED TAXONOMY FIELDS ---
@@ -70,8 +72,15 @@ export const DRILLS: Record<string, DrillData> = {
         prescription: [
             "10 reps without ball (feel the move)",
             "10 half shots (focus on contact)",
-            "10 full shots (commit to the feeling)",
+            "Hit 10 full shots (commit to the feeling)",
         ],
+        // Normalized Data
+        id: "DRL-PTH-TRANS-SHALLOW-001",
+        primaryCategory: "PTH",
+        secondaryCategories: ["SEQ"],
+        level: 4,
+        fixesFaults: ["FLT-PTH-SLICE", "FLT-SEQ-OVER_TOP"],
+        rootCausePriority: 1.0
     },
     "wall-drill": {
         slug: "wall-drill",
@@ -114,6 +123,13 @@ export const DRILLS: Record<string, DrillData> = {
             "3 sets of 10 reps (no club)",
             "Do this before every range session to wake up the glutes.",
         ],
+        // Normalized Data
+        id: "DRL-SEQ-POSTURE-STAY-001",
+        primaryCategory: "SEQ",
+        secondaryCategories: ["STR"],
+        level: 1,
+        fixesFaults: ["FLT-SEQ-EARLY_EXT", "FLT-STR-HEEL"],
+        rootCausePriority: 1.3
     },
     "split-grip": {
         slug: "split-grip",
@@ -157,6 +173,13 @@ export const DRILLS: Record<string, DrillData> = {
             "Hit 5 balls with split grip",
             "Hit 5 balls normal grip",
         ],
+        // Normalized Data
+        id: "DRL-REL-IMP-SQUARE-001",
+        primaryCategory: "REL",
+        secondaryCategories: ["SEQ"],
+        level: 1,
+        fixesFaults: ["FLT-REL-CAST", "FLT-SEQ-CHICKEN_WING"],
+        rootCausePriority: 1.0
     },
     "towel-drill": {
         slug: "towel-drill",
