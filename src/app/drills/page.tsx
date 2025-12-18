@@ -46,7 +46,7 @@ export default function DrillsIndex() {
                                     {drill.title}
                                 </h3>
                                 <p className="text-[#8A8A8E] text-sm leading-relaxed mb-4">
-                                    {drill.diagnosis.condition} {drill.diagnosis.symptoms[0]}
+                                    {drill.appFix}
                                 </p>
                                 <div className="flex items-center text-sm font-medium text-white group-hover:gap-2 transition-all">
                                     View Drill <span className="ml-1 opacity-0 group-hover:opacity-100 transition-opacity">→</span>

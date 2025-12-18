@@ -126,7 +126,7 @@ export default function StartHerePage() {
                                 <div className="bg-black/40 rounded-2xl p-6 flex flex-col md:flex-row gap-6 items-center">
                                     <div className="flex-1">
                                         <h4 className="text-white font-bold text-xl mb-1">{drill.title}</h4>
-                                        <p className="text-[#8A8A8E] mb-4">{drill.shortDescription}</p>
+                                        <p className="text-[#8A8A8E] mb-4">{drill.appFix}</p>
                                         <Link
                                             href={`/drills/${drill.slug}`}
                                             className="inline-flex items-center gap-2 bg-[#6B9B78] hover:bg-[#5A8A68] text-white px-6 py-3 rounded-full font-bold transition-all transform hover:scale-105"
