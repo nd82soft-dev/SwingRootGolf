@@ -1,835 +1,756 @@
 export type DrillData = {
     slug: string;
-    title: string;
+    title: string; // Primary Outcome
+    technicalName: string; // Drill Name
+
+    // --- ATOMS FOR VIEW VARIANTS ---
+    appFix: string; // "Fixes: [root cause]" (Ultra-brief, Action-First)
+    websiteWhy: string; // "Why this helps..." (Authority, 1 sentence)
+    bestFor: string[]; // Observable misses
+
+    // --- METADATA ---
     category: string;
     duration: string;
     videoUrl: string;
     clubBadge: string;
     difficulty: string;
-    faultsFixed: string[];
-    diagnosis: {
-        condition: string;
-        symptoms: string[];
-        faceVsPath: string;
-    };
-    whyItWorks: string[];
+
+    // --- INSTRUCTIONAL ---
     steps: string[];
     checkpoints: string[];
     mistakes: string[];
-    progression: { level: string; task: string }[];
-    contraindications: string[];
     prescription: string[];
-    externalLink?: string; // YouTube or Article link
-    // --- NORMALIZED TAXONOMY FIELDS ---
-    id: string; // DRL-{CATEGORY}-{SUBCATEGORY}-{INTENT}-{VARIANT}
-    primaryCategory: "FCE" | "PTH" | "LP" | "AOA" | "STR" | "SEQ" | "WGT" | "TMP" | "SET" | "REL";
-    secondaryCategories: string[];
-    level: 1 | 2 | 3 | 4 | 5; // 1=Static, 5=Pressure
-    fixesFaults: string[]; // FLT-{DOMAIN}-{MECHANISM}-{DIRECTION}
-    rootCausePriority: number; // 1.3=Setup, 1.2=Seq, 1.0=Face/Path, 0.8=Strike
+    contraindications: string[]; // When NOT to use
+
+    // --- NORMALIZED TAXONOMY ---
+    id: string; // DRL-CAT-TYPE-NAME-001
+    primaryCategory: "FCE" | "PTH" | "LP" | "AOA" | "STR" | "SEQ" | "WGT" | "TMP" | "SET" | "REL" | "MEN";
+    level: 1 | 2 | 3 | 4 | 5;
+
+    externalLink?: string;
 };
 
 export const DRILLS: Record<string, DrillData> = {
-    "pump-drill": {
-        slug: "pump-drill",
-        title: "Pump Drill",
+    // ==========================================================
+    // 2. CORE DRILL CARDS (HIGH-FREQUENCY FAULTS)
+    // ==========================================================
+    "fix-slice": {
+        slug: "fix-slice",
+        title: "Fix a Slice",
+        technicalName: "Pump Drill",
+        appFix: "Fixes: over-the-top downswing path",
+        websiteWhy: "Improves downswing sequencing so the club approaches the ball from the correct direction.",
+        bestFor: ["Ball curves right", "Pulls or weak contact"],
         category: "Path",
         duration: "10 min",
         videoUrl: "/videos/pump-drill.mp4",
         clubBadge: "Driver / Irons",
         difficulty: "Intermediate",
-        faultsFixed: ["Slice", "Over-the-top", "Steep Downswing"],
-        diagnosis: {
-            condition: "This drill is best if your ball:",
-            symptoms: [
-                "Starts left and curves right (Slice)",
-                "Feels steep or 'choppy' from the top",
-                "Spins too much with driver (ballooning)",
-            ],
-            faceVsPath: "Ideally, your path should be inside-out for a draw. A slice happens when the club moves outside-in across the ball with an open face.",
-        },
-        whyItWorks: [
-            "By pausing halfway down, you kill the momentum that usually throws the club 'over the top'.",
-            "It forces you to initiate the downswing with your lower body while keeping your back to the target.",
-            "The 'pump' sensation actively shallows the shaft, retraining your brain to feel the club head dropping behind your hands.",
-        ],
-        steps: [
-            "Set up normally to the ball.",
-            "Swing to the top (P4) and pause.",
-            "Pump the club halfway down to 'P5' (lead arm parallel). Feel the club head stay behind your hands.",
-            "Return to the top.",
-            "Pump down again.",
-            "On the third time, swing through fully to the finish.",
-        ],
-        checkpoints: ["Keep your back to the target during the pumps.", "Ideally, miss the ball to the RIGHT relative to your target line."],
-        mistakes: ["Using only arms to pump (hips must bump).", "Opening the shoulders too early."],
-        progression: [
-            { level: "Beginner", task: "Slow motion rehearsals without a ball." },
-            { level: "Intermediate", task: "Hit balls at 50% speed." },
-            { level: "Advanced", task: "Full speed, random targets." },
-        ],
-        contraindications: ["Do not use this drill if your miss is a HOOK or Push-Draw. This will make it worse."],
-        prescription: [
-            "10 reps without ball (feel the move)",
-            "10 half shots (focus on contact)",
-            "Hit 10 full shots (commit to the feeling)",
-        ],
-        // Normalized Data
+        steps: ["Swing to top and pause", "Pump arms down halfway", "Swing through"],
+        checkpoints: ["Back to target", "Arms drop inside"],
+        mistakes: ["Spinning shoulders", "Casting"],
+        prescription: ["10 reps daily"],
+        contraindications: ["Hook miss"],
         id: "DRL-PTH-TRANS-SHALLOW-001",
         primaryCategory: "PTH",
-        secondaryCategories: ["SEQ"],
         level: 4,
-        fixesFaults: ["FLT-PTH-SLICE", "FLT-SEQ-OVER_TOP"],
-        rootCausePriority: 1.0,
         externalLink: "https://www.youtube.com/results?search_query=Pump+Drill+Golf"
     },
-    "wall-drill": {
-        slug: "wall-drill",
-        title: "The Wall Drill",
-        category: "Depth",
+    "fix-fat-shots": {
+        slug: "fix-fat-shots",
+        title: "Fix Fat Iron Shots",
+        technicalName: "Divot After Ball Drill",
+        appFix: "Fixes: early low point and heavy contact",
+        websiteWhy: "Trains your swing low point to occur in front of the ball, improving contact and compression.",
+        bestFor: ["Ground before ball", "Inconsistent distance"],
+        category: "Low Point",
         duration: "5 min",
-        videoUrl: "/videos/wall-drill.mp4",
-        clubBadge: "Irons",
-        difficulty: "Beginner",
-        faultsFixed: ["Early Extension", "Loss of Posture", "Hips Moving Toward Ball"],
-        diagnosis: {
-            condition: "This drill is best if your ball:",
-            symptoms: [
-                "Blocks to the right or thin shots",
-                "You feel 'crowded' or stuck at impact",
-                "Your hips thrust toward the ball (Early Extension)",
-            ],
-            faceVsPath: "When hips move toward the ball, you lose space for your arms, forcing you to stand up and flip the club.",
-        },
-        whyItWorks: [
-            "It gives you instant tactile feedback (your glutes leaving the wall) when you early extend.",
-            "It forces proper hip rotation and depth, creating space for your arms to swing through.",
-        ],
-        steps: [
-            "Stand with your back 1 inch away from a wall (without a club).",
-            "Get into your golf posture. Your glutes should lightly touch the wall.",
-            "Make a backswing. Your TRAIL glute should slide along the wall.",
-            "Start the downswing. Your LEAD glute should replace the trail glute on the wall.",
-            "Keep contact with the wall through impact.",
-        ],
-        checkpoints: ["Glutes stay on wall entire time.", "Chest stays down (don't stand up)."],
-        mistakes: ["Moving away from the wall.", "Sliding hips laterally instead of rotating."],
-        progression: [
-            { level: "b", task: "Without club (arms crossed)." },
-            { level: "i", task: "With club (slow motion)." },
-            { level: "a", task: "Full speed swings (no ball)." },
-        ],
-        contraindications: ["If you struggle with sliding/swaying too much, focus on stability first."],
-        prescription: [
-            "3 sets of 10 reps (no club)",
-            "Do this before every range session to wake up the glutes.",
-        ],
-        // Normalized Data
-        id: "DRL-SEQ-POSTURE-STAY-001",
-        primaryCategory: "SEQ",
-        secondaryCategories: ["STR"],
-        level: 1,
-        fixesFaults: ["FLT-SEQ-EARLY_EXT", "FLT-STR-HEEL"],
-        rootCausePriority: 1.3,
-        externalLink: "https://www.youtube.com/results?search_query=Wall+Drill+Early+Extension+Golf"
-    },
-    "split-grip": {
-        slug: "split-grip",
-        title: "Split Grip Drill",
-        category: "Release",
-        duration: "3 min",
-        videoUrl: "/videos/split-grip.mp4",
-        clubBadge: "Irons / Driver",
-        difficulty: "Beginner",
-        faultsFixed: ["Casting", "Chicken Wing", "Slice"],
-        diagnosis: {
-            condition: "This drill is best if you:",
-            symptoms: [
-                "Struggle to square the face (chronic slice)",
-                "Have a 'chicken wing' follow through",
-                "Lack clubhead speed",
-            ],
-            faceVsPath: "Proper release allows the toe of the club to pass the heel, squaring the face naturally without manipulation.",
-        },
-        whyItWorks: [
-            "Splitting your hands increases leverage, making it easier to feel the clubhead's weight.",
-            "It promotes proper forearm rotation (supination) through impact.",
-            "It prevents the lead elbow from flying out (chicken wing).",
-        ],
-        steps: [
-            "Take your normal grip, then slide your trail hand down about 3-4 inches.",
-            "Make half swings (waist to waist).",
-            "Feel the trail arm extending over the lead arm through impact.",
-            "The toe of the club should point up to the sky in the follow-through.",
-        ],
-        checkpoints: ["Trail arm straight through impact.", "Toe up to toe up."],
-        mistakes: ["Gripping too tight.", "Trying to scoop the ball."],
-        progression: [
-            { level: "b", task: "Practice swings only." },
-            { level: "i", task: "Hit balls off a tee." },
-            { level: "a", task: "Full shots." },
-        ],
-        contraindications: ["If you hook the ball, this drill might promote too much face rotation."],
-        prescription: [
-            "10 reps practice swings",
-            "Hit 5 balls with split grip",
-            "Hit 5 balls normal grip",
-        ],
-        // Normalized Data
-        id: "DRL-REL-IMP-SQUARE-001",
-        primaryCategory: "REL",
-        secondaryCategories: ["SEQ"],
-        level: 1,
-        fixesFaults: ["FLT-REL-CAST", "FLT-SEQ-CHICKEN_WING"],
-        rootCausePriority: 1.0,
-        externalLink: "https://www.youtube.com/results?search_query=Split+Grip+Drill+Golf"
-    },
-    "towel-drill": {
-        slug: "towel-drill",
-        title: "Towel Drill",
-        category: "Connection",
-        duration: "10 min",
         videoUrl: "/videos/towel-drill.mp4",
-        clubBadge: "Irons / Wedges",
-        difficulty: "Beginner",
-        faultsFixed: ["Chicken Wing", "Disconnect", "Inconsistent Contact"],
-        diagnosis: {
-            condition: "This drill is best if you:",
-            symptoms: [
-                "Hit shots off the toe",
-                "Arms fly away from body in backswing",
-                "Lack power despite swinging hard",
-            ],
-            faceVsPath: "Disconnection often leads to an unstable path and face variability.",
-        },
-        whyItWorks: [
-            "Keeps the arms connected to the torso, ensuring the big muscles control the swing.",
-            "Prevents the lead arm from lifting too high or the trail elbow flying out.",
-        ],
-        steps: [
-            "Place a towel across your chest, under both armpits.",
-            "Make half swings (9-to-3) without dropping the towel.",
-            "Feel your chest driving the rotation back and through.",
-        ],
-        checkpoints: ["Towel stays under both armpits.", "Finish with chest facing target."],
-        mistakes: ["Using too long of a towel.", "Trying to make full swings immediately."],
-        progression: [
-            { level: "b", task: "Pitch shots with towel." },
-            { level: "i", task: "Full iron shots (towel under armpits)." },
-            { level: "a", task: "Driver (towel only under trail arm)." },
-        ],
-        contraindications: ["If you have very limited flexibility, use a smaller towel or just one armpit."],
-        prescription: ["20 balls with 7-iron.", "Focus on body rotation."],
-        // Normalized Data
-        id: "DRL-SEQ-CONN-TOWEL-001",
-        primaryCategory: "SEQ",
-        secondaryCategories: ["WGT"],
-        level: 3,
-        fixesFaults: ["FLT-SEQ-DISCONNECT", "FLT-SEQ-CHICKEN_WING"],
-        rootCausePriority: 1.2,
-        externalLink: "https://www.youtube.com/results?search_query=Towel+Under+Arm+Drill+Golf"
-    },
-    "l-to-l": {
-        slug: "l-to-l",
-        title: "L-to-L Drill",
-        category: "Hinge",
-        duration: "5 min",
-        videoUrl: "/videos/l-to-l.mp4",
-        clubBadge: "Wedges / Short Irons",
-        difficulty: "Beginner",
-        faultsFixed: ["No Hinge", "Casting", "Poor Timing"],
-        diagnosis: {
-            condition: "This drill is best if you:",
-            symptoms: [
-                "Struggle with contact on pitch shots",
-                "Have no wrist set in backswing",
-                "Feel 'wooden' or stiff",
-            ],
-            faceVsPath: "Proper hinge sets the radius of the swing, crucial for consistent low-point control.",
-        },
-        whyItWorks: [
-            "Teaches the correct wrist hinge mechanism.",
-            "Synchronizes the arms and body.",
-        ],
-        steps: [
-            "Swing back until lead arm and shaft form an 'L'.",
-            "Swing through until trail arm and shaft form an 'L'.",
-            "Focus on the rhythm: 'Hinge, Turn, Hinge'.",
-        ],
-        checkpoints: ["Thumbs point up at L positions.", "Butt of grip points at ball equivalent."],
-        mistakes: ["Using only wrists (no body turn).", "Stopping at impact."],
-        progression: [
-            { level: "b", task: "Practice swings." },
-            { level: "i", task: "Hit 50 yard pitch shots." },
-            { level: "a", task: "Hit full 9-irons." },
-        ],
-        contraindications: ["None. Good for everyone."],
-        prescription: ["15 balls warm up."],
-        // Normalized Data
-        id: "DRL-REL-HINGE-L2L-001",
-        primaryCategory: "REL",
-        secondaryCategories: ["TMP"],
-        level: 2,
-        fixesFaults: ["FLT-REL-NO_HINGE", "FLT-REL-CAST"],
-        rootCausePriority: 1.0,
-        externalLink: "https://www.youtube.com/results?search_query=L+to+L+Drill+Golf"
-    },
-    "feet-together": {
-        slug: "feet-together",
-        title: "Feet Together",
-        category: "Balance",
-        duration: "5 min",
-        videoUrl: "/videos/feet-together.mp4",
         clubBadge: "Irons",
-        difficulty: "Intermediate",
-        faultsFixed: ["Swaying", "Poor Balance", "Sliding"],
-        diagnosis: {
-            condition: "This drill is best if you:",
-            symptoms: [
-                "Fall off balance during swing",
-                "Hit lots of fat or thin shots",
-                "Slide hips too much laterally",
-            ],
-            faceVsPath: "Swaying moves the low point of the arc, causing contact issues.",
-        },
-        whyItWorks: [
-            "Removes the ability to sway.",
-            "Forces you to rotate around a centered axis.",
-            "Improves tempo and rhythm.",
-        ],
-        steps: [
-            "Place feet completely together (touching).",
-            "Hit 7-irons at 75% speed.",
-            "Focus on staying perfectly centered.",
-        ],
-        checkpoints: ["Hold finish for 3 seconds.", "No falling over."],
-        mistakes: ["Swinging too hard.", "Letting feet come apart."],
-        progression: [
-            { level: "b", task: "Short chips." },
-            { level: "i", task: "Full irons." },
-            { level: "a", task: "Driver (very hard)." },
-        ],
-        contraindications: ["Balance issues."],
-        prescription: ["10 balls at start of session."],
-        // Normalized Data
-        id: "DRL-WGT-BALANCE-FEET-001",
-        primaryCategory: "WGT",
-        secondaryCategories: ["SEQ"],
+        difficulty: "Advanced",
+        steps: ["Towel 4 inches behind ball", "Hit ball, miss towel"],
+        checkpoints: ["Towel stays put", "Clean tick sound"],
+        mistakes: ["Steep chop", "Hanging back"],
+        prescription: ["20 balls"],
+        contraindications: ["Driver"],
+        id: "DRL-LP-IMP-FWD-001",
+        primaryCategory: "LP",
         level: 4,
-        fixesFaults: ["FLT-WGT-SWAY", "FLT-WGT-SLIDE"],
-        rootCausePriority: 1.3,
-        externalLink: "https://www.youtube.com/results?search_query=Feet+Together+Drill+Golf"
+        externalLink: "https://www.youtube.com/results?search_query=Towel+Behind+Ball+Drill"
     },
-    "impact-bag": {
-        slug: "impact-bag",
-        title: "Impact Bag",
+    "fix-thin-shots": {
+        slug: "fix-thin-shots",
+        title: "Fix Thin Iron Shots",
+        technicalName: "Handle Ahead Drill",
+        appFix: "Fixes: early release and scooping",
+        websiteWhy: "Encourages proper shaft lean at impact, reducing scooping and early release.",
+        bestFor: ["Thin contact", "Low, weak shots"],
         category: "Impact",
         duration: "5 min",
-        videoUrl: "/videos/impact-bag.mp4",
+        videoUrl: "/videos/handle-ahead.mp4",
         clubBadge: "Irons",
-        difficulty: "Beginner",
-        faultsFixed: ["Scooping", "Weak Impact", "Chicken Wing"],
-        diagnosis: {
-            condition: "This drill is best if you:",
-            symptoms: [
-                "Hit high weak shots",
-                "Scoop the ball at impact",
-                "Lack compression",
-            ],
-            faceVsPath: "Impact is the moment of truth. This improves shaft lean."
-        },
-        whyItWorks: [
-            "Provides physical resistance to train shaft lean.",
-            "Stops the flip (scoop) instantly.",
-        ],
-        steps: [
-            "Set up to impact bag (or old pillow).",
-            "Swing into bag, stopping at impact.",
-            "Check that hands are ahead of clubhead.",
-        ],
-        checkpoints: ["Lead wrist flat.", "Shaft leaning forward."],
-        mistakes: ["Hitting bag too hard.", "Stopping body rotation."],
-        progression: [
-            { level: "b", task: "Static press into bag." },
-            { level: "i", task: "Half speed impacts." },
-            { level: "a", task: "Full speed." },
-        ],
-        contraindications: ["Wrist injury."],
-        prescription: ["10 whacks before hitting balls."],
-        // Normalized Data
-        id: "DRL-LP-IMP-BAG-001",
-        primaryCategory: "LP",
-        secondaryCategories: ["AOA"],
-        level: 4,
-        fixesFaults: ["FLT-LP-SCOOP", "FLT-AOA-NEG"],
-        rootCausePriority: 0.8,
-        externalLink: "https://www.youtube.com/results?search_query=Impact+Bag+Drill+Golf"
+        difficulty: "Intermediate",
+        steps: ["Setup hands forward", "Maintain angle in backswing", "Lead with hands"],
+        checkpoints: ["Hands lead clubhead", "Low flight"],
+        mistakes: ["Backing up", "Flipping"],
+        prescription: ["15 reps"],
+        contraindications: ["Fat shots"],
+        id: "DRL-REL-IMP-LEAN-001",
+        primaryCategory: "REL",
+        level: 3,
+        externalLink: "https://www.youtube.com/results?search_query=Shaft+Lean+Drills+Golf"
     },
-    "tempo-beats": {
-        slug: "tempo-beats",
-        title: "Tempo Beats",
-        category: "Tempo",
-        duration: "Any",
-        videoUrl: "/videos/tempo-beats.mp4",
+    "fix-weak-drives": {
+        slug: "fix-weak-drives",
+        title: "Fix Weak Drives",
+        technicalName: "High Tee Sweep Drill",
+        appFix: "Fixes: negative angle of attack",
+        websiteWhy: "Promotes an upward strike with the driver, increasing carry and reducing excess spin.",
+        bestFor: ["High spin", "Short drives"],
+        category: "Angle of Attack",
+        duration: "5 min",
+        videoUrl: "/videos/high-tee.mp4",
         clubBadge: "Driver",
         difficulty: "Intermediate",
-        faultsFixed: ["Rushing", "Jurky Transition"],
-        diagnosis: {
-            condition: "This drill is best if you:",
-            symptoms: [
-                "Get quick from the top",
-                "Lose rhythm under pressure",
-            ],
-            faceVsPath: "Tempo glues the mechanics together."
-        },
-        whyItWorks: [
-            "Engrains a 3:1 tempo ratio (Tour standard).",
-            "Calms the transition.",
-        ],
-        steps: [
-            "Download a metronome app (set 3:1 mode or BPM).",
-            "Swing back on '1'.",
-            "Impact on '3'.",
-        ],
-        checkpoints: ["Smooth transition.", "Solid contact."],
-        mistakes: ["Fighting the beat."],
-        progression: [
-            { level: "b", task: "Practice swings." },
-            { level: "i", task: "Hitting balls." },
-        ],
-        contraindications: ["None."],
-        prescription: ["Entire range session."],
-        // Normalized Data
-        id: "DRL-TMP-RHYTHM-BEATS-001",
+        steps: ["Tee ball extra high", "Sweep it off the tee", "Don't hit ground"],
+        checkpoints: ["Clean sweep", "High launch"],
+        mistakes: ["Chopping down", "Pop-ups"],
+        prescription: ["10 drives"],
+        contraindications: ["Irons"],
+        id: "DRL-AOA-DRV-UP-001",
+        primaryCategory: "AOA",
+        level: 3,
+        externalLink: "https://www.youtube.com/results?search_query=High+Tee+Driver+Drill"
+    },
+    "fix-inconsistent-contact": {
+        slug: "fix-inconsistent-contact",
+        title: "Fix Inconsistent Contact",
+        technicalName: "Tempo Count Drill",
+        appFix: "Fixes: rushed tempo and timing",
+        websiteWhy: "Stabilizes swing timing so the club returns to impact more consistently.",
+        bestFor: ["Random misses", "Loss of control under pressure"],
+        category: "Tempo",
+        duration: "Any",
+        videoUrl: "/videos/tempo.mp4",
+        clubBadge: "All Clubs",
+        difficulty: "Beginner",
+        steps: ["Count 1 (Start)", "Count 2 (Top)", "Count 3 (Impact)"],
+        checkpoints: ["Even cadence", "No rushing"],
+        mistakes: ["Skipping numbers", "Fast takeaway"],
+        prescription: ["All session"],
+        contraindications: ["None"],
+        id: "DRL-TMP-COUNT-001",
         primaryCategory: "TMP",
-        secondaryCategories: ["SEQ"],
-        level: 3,
-        fixesFaults: ["FLT-TMP-RUSH", "FLT-TMP-JERKY"],
-        rootCausePriority: 1.2,
-        externalLink: "https://www.youtube.com/results?search_query=Golf+Tempo+Drills+Beats"
+        level: 1,
+        externalLink: "https://www.youtube.com/results?search_query=Golf+Tempo+Count+Drill"
     },
-    // --- NEW MASTER SYSTEM DRILLS ---
-    "split-hand-drill": {
-        slug: "split-hand-drill",
-        title: "Split-Hand Drill",
-        category: "Sequencing",
+
+    // ==========================================================
+    // 3. EXPANDED DRILL CARDS (CLUBFACE CONTROL)
+    // ==========================================================
+    "fix-push-shots": {
+        slug: "fix-push-shots",
+        title: "Fix Push Shots",
+        technicalName: "Lead Wrist Bow Drill",
+        appFix: "Fixes: open face relative to path",
+        websiteWhy: "Improves clubface position through impact by flattening the lead wrist.",
+        bestFor: ["Ball starts right", "Weak fades"],
+        category: "Face Control",
         duration: "5 min",
-        videoUrl: "/videos/split-hand.mp4",
-        externalLink: "https://www.youtube.com/results?search_query=Split+Hand+Golf+Drill",
-        clubBadge: "Driver / Irons",
+        videoUrl: "/videos/wrist-bow.mp4",
+        clubBadge: "Irons",
         difficulty: "Intermediate",
-        faultsFixed: ["Face Closed", "Stuck/Blocked", "Chicken Wing"],
-        diagnosis: {
-            condition: "This drill is best if you:",
-            symptoms: ["Hook the ball dangerously", "Feel 'stuck' or blocked on downswing", "Have a closed face at the top"],
-            faceVsPath: "Separating hands encourages the lead arm to fold correctly and prevents the face from shutting down."
-        },
-        whyItWorks: [
-            "Increases leverage to feel the clubhead's true position.",
-            "Prevents the lead arm from dominating (pulling) the swing.",
-            "Forces proper re-hinging after impact."
-        ],
-        steps: [
-            "Take your normal grip.",
-            "Slide your trail hand down the grip (split hands by 6 inches).",
-            "Make 3/4 swings feeling the trail arm push the club wide.",
-            "Check that the face is square (toe up) at waist high."
-        ],
-        checkpoints: ["Trail arm extends fully post-impact.", "Face stays square, not shut."],
-        mistakes: ["Splitting hands too far (like a hockey stick).", "Swinging too fast."],
-        progression: [
-            { level: "b", task: "Practice swings only." },
-            { level: "i", task: "Hit balls off tee (7-iron)." },
-            { level: "a", task: "Driver practice swings." }
-        ],
-        contraindications: ["If you slice due to an OPEN face, this might not be the primary fix (use Release drills)."],
-        prescription: ["10 reps before every driver session."],
-        // Normalized Data
-        id: "DRL-SEQ-TRANS-UNSTICK-001",
-        primaryCategory: "SEQ",
-        secondaryCategories: ["FCE"],
+        steps: ["Take club to top", "Bow (flex) lead wrist", "Hold and verify"],
+        checkpoints: ["Knuckles down", "Face slightly shut"],
+        mistakes: ["Cupping wrist", "Opening face"],
+        prescription: ["10 slow reps"],
+        contraindications: ["Hooks"],
+        id: "DRL-FCE-TOP-BOW-001",
+        primaryCategory: "FCE",
         level: 3,
-        fixesFaults: ["FLT-SEQ-STUCK-BLOCK", "FLT-FCE-CLOSED"],
-        rootCausePriority: 1.2
+        externalLink: "https://www.youtube.com/results?search_query=Golf+Lead+Wrist+Bow+Drill"
     },
-    "toe-up-drill": {
-        slug: "toe-up-drill",
-        title: "Toe-Up to Toe-Up",
+    "fix-pull-shots": {
+        slug: "fix-pull-shots",
+        title: "Fix Pull Shots",
+        technicalName: "Toe-Up Check Drill",
+        appFix: "Fixes: closed face takeaway or impact",
+        websiteWhy: "Improves face awareness through the swing ensuring neutral orientation.",
+        bestFor: ["Ball starts left", "Straight pulls"],
         category: "Face Control",
         duration: "5 min",
         videoUrl: "/videos/toe-up.mp4",
-        externalLink: "https://www.youtube.com/results?search_query=Toe+Up+to+Toe+Up+Golf+Drill",
         clubBadge: "Irons",
         difficulty: "Beginner",
-        faultsFixed: ["Slice", "Hook", "Face Control"],
-        diagnosis: {
-            condition: "This drill is best if you:",
-            symptoms: ["Have no idea where the face is pointing", "Hit wild curves (both ways)", "Have very 'quiet' hands (too stiff)"],
-            faceVsPath: "The golf swing is an arc. The toe must rotate open and closed relative to the arc."
-        },
-        whyItWorks: [
-            "Simplifies the swing to just the release pattern.",
-            "Teaches you to rotate the forearms naturally.",
-            "Synchronizes the body pivot with arm rotation."
-        ],
-        steps: [
-            "Take a narrow stance (feet together).",
-            "Swing back to waist high -> Toe of club points UP to sky.",
-            "Swing through to waist high -> Toe of club points UP to sky."
-        ],
-        checkpoints: ["Toe points vertical at P3 and P9.", "Elbows stay close to ribs."],
-        mistakes: ["Flipping wrists instead of rotating arms.", " swaying."],
-        progression: [
-            { level: "b", task: "Waist to waist swings." },
-            { level: "i", task: "Shoulder to shoulder." },
-            { level: "a", task: "Full speed." }
-        ],
-        contraindications: ["None. The most fundamental drill in golf."],
-        prescription: ["20 balls warm-up every session."],
-        // Normalized Data
-        id: "DRL-FCE-REL-SQUARE-001",
+        steps: ["Swing to waist high", "Check toe is pointing up", "Swing to finish", "Check toe is up"],
+        checkpoints: ["Toe vertical at P3", "Toe vertical at P9"],
+        mistakes: ["Face looking ground", "Face looking sky"],
+        prescription: ["20 checks"],
+        contraindications: ["Slices"],
+        id: "DRL-FCE-CHK-TOE-001",
         primaryCategory: "FCE",
-        secondaryCategories: ["REL"],
         level: 2,
-        fixesFaults: ["FLT-FCE-OPEN", "FLT-FCE-CLOSED"],
-        rootCausePriority: 1.0
+        externalLink: "https://www.youtube.com/results?search_query=Toe+Up+Golf+Drill"
     },
-    "step-through-drill": {
-        slug: "step-through-drill",
-        title: "Step-Through Drill",
+    "fix-start-direction": {
+        slug: "fix-start-direction",
+        title: "Fix Inconsistent Start Direction",
+        technicalName: "Split-Hand Control Drill",
+        appFix: "Fixes: lack of face stability",
+        websiteWhy: "Improves independent hand control and face stability through the impact zone.",
+        bestFor: ["Random start lines", "Timing-based misses"],
+        category: "Face Control",
+        duration: "5 min",
+        videoUrl: "/videos/split-hand.mp4",
+        clubBadge: "Irons",
+        difficulty: "Advanced",
+        steps: ["Split hands 3 inches apart", "Make half swings", "Feel lead arm control"],
+        checkpoints: ["Face square", "Hands working together"],
+        mistakes: ["Crossing hands", "Flipping"],
+        prescription: ["15 reps"],
+        contraindications: ["None"],
+        id: "DRL-FCE-IMP-SPLIT-001",
+        primaryCategory: "FCE",
+        level: 4,
+        externalLink: "https://www.youtube.com/results?search_query=Split+Hands+Golf+Drill"
+    },
+
+    // ==========================================================
+    // SWING PATH
+    // ==========================================================
+    "fix-push-slice": {
+        slug: "fix-push-slice",
+        title: "Fix Push-Slices",
+        technicalName: "Inside Path Alignment Drill",
+        appFix: "Fixes: out-to-in or neutral path with open face",
+        websiteWhy: "Encourages the club to approach from inside the target line.",
+        bestFor: ["Starts right, curves right", "Weak contact"],
+        category: "Path",
+        duration: "10 min",
+        videoUrl: "/videos/inside-gate.mp4",
+        clubBadge: "Driver / Irons",
+        difficulty: "Intermediate",
+        steps: ["45-degree alignment stick", "Swing under the stick", "Push out to right"],
+        checkpoints: ["Swing under stick", "Draw spin"],
+        mistakes: ["Hitting stick", "Coming over"],
+        prescription: ["10 reps"],
+        contraindications: ["Hooks"],
+        id: "DRL-PTH-DS-INSIDE-001",
+        primaryCategory: "PTH",
+        level: 3,
+        externalLink: "https://www.youtube.com/results?search_query=Inside+Path+Golf+Drill"
+    },
+    "fix-pull-hook": {
+        slug: "fix-pull-hook",
+        title: "Fix Pull-Hooks",
+        technicalName: "Exit Left Drill",
+        appFix: "Fixes: stuck path and flip",
+        websiteWhy: "Controls swing direction through impact preventing the club from getting stuck.",
+        bestFor: ["Starts left, curves left", "Low hooks"],
+        category: "Path",
+        duration: "5 min",
+        videoUrl: "/videos/exit-left.mp4",
+        clubBadge: "Irons",
+        difficulty: "Advanced",
+        steps: ["Visualize exiting low and left", "Swing with open stance", "Hold finish low"],
+        checkpoints: ["Body rotation", "Low exit"],
+        mistakes: ["Stalling hips", "High finish"],
+        prescription: ["10 reps"],
+        contraindications: ["Slices"],
+        id: "DRL-PTH-IMP-EXIT-001",
+        primaryCategory: "PTH",
+        level: 4,
+        externalLink: "https://www.youtube.com/results?search_query=Golf+Drill+Exit+Left"
+    },
+    "fix-steep-downswing": {
+        slug: "fix-steep-downswing",
+        title: "Fix Steep Downswing",
+        technicalName: "Trail Elbow Slot Drill",
+        appFix: "Fixes: steep shaft in transition",
+        websiteWhy: "Shallows the club during transition by tucking the trail elbow.",
+        bestFor: ["Divots too deep", "Pull-cuts"],
+        category: "Path",
+        duration: "5 min",
+        videoUrl: "/videos/elbow-slot.mp4",
+        clubBadge: "Irons",
+        difficulty: "Intermediate",
+        steps: ["Top of swing", "Drop elbow to hip", "Rotate through"],
+        checkpoints: ["Elbow leads hands", "Shallow shaft"],
+        mistakes: ["Elbow flies out", "Shoulders spin"],
+        prescription: ["20 reps"],
+        contraindications: ["Stuck/Under plane"],
+        id: "DRL-PTH-TRANS-SLOT-001",
+        primaryCategory: "PTH",
+        level: 3,
+        externalLink: "https://www.youtube.com/results?search_query=Trail+Elbow+Slot+Drill"
+    },
+
+    // ==========================================================
+    // SEQUENCING / TRANSITION
+    // ==========================================================
+    "fix-rushed-transition": {
+        slug: "fix-rushed-transition",
+        title: "Fix Rushed Transition",
+        technicalName: "Pause-at-the-Top Drill",
+        appFix: "Fixes: jerky tempo and arms taking over",
+        websiteWhy: "Allows the lower body to initiate the downswing before the arms fire.",
+        bestFor: ["Jerky swings", "Loss of control"],
+        category: "Sequencing",
+        duration: "10 min",
+        videoUrl: "/videos/pause-top.mp4",
+        clubBadge: "All Clubs",
+        difficulty: "Intermediate",
+        steps: ["Full turn to top", "Count 'one-mississippi'", "Fire hips"],
+        checkpoints: ["Total stop of club", "Smooth restart"],
+        mistakes: ["Drifting", "Rushing count"],
+        prescription: ["10 balls"],
+        contraindications: ["Stalling"],
+        id: "DRL-SEQ-TRANS-PAUSE-001",
+        primaryCategory: "SEQ",
+        level: 3,
+        externalLink: "https://www.youtube.com/results?search_query=Pause+at+Top+Golf+Drill"
+    },
+    "fix-arms-dominating": {
+        slug: "fix-arms-dominating",
+        title: "Fix Arms Dominating Swing",
+        technicalName: "Step-Rotate Drill",
+        appFix: "Fixes: poor body sequencing",
+        websiteWhy: "Re-syncs body and arm movement so the big muscles drive the swing.",
+        bestFor: ["Weak contact", "Inconsistent direction"],
+        category: "Sequencing",
+        duration: "5 min",
+        videoUrl: "/videos/step-rotate.mp4",
+        clubBadge: "Driver / Irons",
+        difficulty: "Beginner",
+        steps: ["Feet together", "Step target foot", "Swing"],
+        checkpoints: ["Step then swing", "Fluid motion"],
+        mistakes: ["Swing then step", "Rigid arms"],
+        prescription: ["Warm up with 10"],
+        contraindications: ["Balance issues"],
+        id: "DRL-SEQ-GEN-STEP-001",
+        primaryCategory: "SEQ",
+        level: 1,
+        externalLink: "https://www.youtube.com/results?search_query=Step+Change+Golf+Drill"
+    },
+    "fix-stuck-downswing": {
+        slug: "fix-stuck-downswing",
+        title: "Fix Stuck Downswing",
+        technicalName: "Chest-Cover Drill",
+        appFix: "Fixes: arms trapped behind body",
+        websiteWhy: "Improves arm-body connection through impact preventing the club from dropping too far inside.",
+        bestFor: ["Blocks", "Push-draws"],
+        category: "Sequencing",
+        duration: "5 min",
+        videoUrl: "/videos/chest-cover.mp4",
+        clubBadge: "Irons",
+        difficulty: "Intermediate",
+        steps: ["Towel under armpits", "Half swings", "Keep towel in place"],
+        checkpoints: ["Connected arms", "Body rotation"],
+        mistakes: ["Dropping towel", "Chicken wing"],
+        prescription: ["15 reps"],
+        contraindications: ["Over-the-top"],
+        id: "DRL-SEQ-IMP-CONNECT-001",
+        primaryCategory: "SEQ",
+        level: 3,
+        externalLink: "https://www.youtube.com/results?search_query=Towel+Drill+Golf+Connection"
+    },
+
+    // ==========================================================
+    // WEIGHT / PRESSURE
+    // ==========================================================
+    "fix-hanging-back": {
+        slug: "fix-hanging-back",
+        title: "Fix Hanging Back",
+        technicalName: "Step-Through Drill",
+        appFix: "Fixes: reverse pivot and poor transfer",
+        websiteWhy: "Encourages pressure to move forward through impact.",
+        bestFor: ["Fat shots", "Weak flight"],
         category: "Weight Shift",
         duration: "5 min",
         videoUrl: "/videos/step-through.mp4",
-        externalLink: "https://www.youtube.com/results?search_query=Gary+Player+Step+Through+Drill",
-        clubBadge: "Driver / Irons",
-        difficulty: "Intermediate",
-        faultsFixed: ["Hanging Back", "Fat Shots", "Loss of Power"],
-        diagnosis: {
-            condition: "This drill is best if you:",
-            symptoms: ["Hit fat shots (ground first)", "Finish with weight on back foot", "Lack clubhead speed"],
-            faceVsPath: "Low point control requires weight to be forward at impact."
-        },
-        whyItWorks: [
-            "Physically forces your weight to the lead side.",
-            "Prevents 'hanging back' (the cause of fat shots).",
-            "Generates ground force momentum."
-        ],
-        steps: [
-            "Set up normally.",
-            "Swing to the top.",
-            "As you start down, dynamic weight shift forward.",
-            "After impact, literally step your trail foot forward towards the target (like walking)."
-        ],
-        checkpoints: ["Belly button faces target.", "Trail foot passes lead foot in finish."],
-        mistakes: ["Stepping too early (before impact).", "Falling backward."],
-        progression: [
-            { level: "b", task: "Practice swings carrying momentum." },
-            { level: "i", task: "Hit balls (7-iron)." },
-            { level: "a", task: "Driver (The 'Gary Player')." }
-        ],
-        contraindications: ["Bad balance or knee issues."],
-        prescription: ["5 swings to feel the flow."],
-        // Normalized Data
-        id: "DRL-WGT-TRANS-FWD-001",
+        clubBadge: "Irons",
+        difficulty: "Beginner",
+        steps: ["Hit ball", "Walk after it", "Hold finish on lead leg"],
+        checkpoints: ["Right foot releases", "Momentum forward"],
+        mistakes: ["Falling back", "Stopping"],
+        prescription: ["10 reps"],
+        contraindications: ["None"],
+        id: "DRL-WGT-TRANS-STEP-001",
         primaryCategory: "WGT",
-        secondaryCategories: ["LP"],
-        level: 4,
-        fixesFaults: ["FLT-WGT-HANG_BACK", "FLT-LP-BEHIND"],
-        rootCausePriority: 1.3
+        level: 2,
+        externalLink: "https://www.youtube.com/results?search_query=Gary+Player+Step+Through+Drill"
     },
-    "chair-drill": {
-        slug: "chair-drill",
-        title: "Chair Drill",
-        category: "Posture",
-        duration: "10 min",
+    "fix-sliding": {
+        slug: "fix-sliding",
+        title: "Fix Sliding Without Rotation",
+        technicalName: "Chair-Between-Knees Drill",
+        appFix: "Fixes: lateral sway without turn",
+        websiteWhy: "Promotes rotational movement instead of lateral sliding.",
+        bestFor: ["Blocks", "Loss of speed"],
+        category: "Weight Shift",
+        duration: "5 min",
         videoUrl: "/videos/chair-drill.mp4",
-        externalLink: "https://www.youtube.com/results?search_query=Golf+Chair+Drill+Early+Extension",
         clubBadge: "Home Drill",
         difficulty: "Beginner",
-        faultsFixed: ["Early Extension", "Loss of Posture", "Heel Strikes"],
-        diagnosis: {
-            condition: "This drill is best if you:",
-            symptoms: ["Thrust hips toward ball", "Stand up out of posture", "Shank or heel strike"],
-            faceVsPath: "If hips invade the arm space, you must flip to make contact."
-        },
-        whyItWorks: [
-            "Provides tactile feedback on hip depth.",
-            "If you leave the chair, you know you've early extended."
-        ],
-        steps: [
-            "Place a chair (or wall) behind you, touching your glutes.",
-            "Take your backswing: Trail glute pushes into chair.",
-            "Downswing: Rotate so LEAD glute pushes into chair.",
-            "Do not let your hips lose contact with the chair."
-        ],
-        checkpoints: ["Constant contact with chair.", "Chest stays down."],
-        mistakes: ["Sliding sideways along chair instead of rotating."],
-        progression: [
-            { level: "b", task: "No club, arms crossed." },
-            { level: "i", task: "With club / slow motion." },
-            { level: "a", task: "Full speed." }
-        ],
-        contraindications: ["None."],
-        prescription: ["50 reps at home watching TV."],
-        // Normalized Data
-        id: "DRL-SEQ-POSTURE-STAY-001",
-        primaryCategory: "SEQ",
-        secondaryCategories: ["STR"],
+        steps: ["Hold object between knees", "Turn back and through", "Don't drop object"],
+        checkpoints: ["Stable base", "Centered turn"],
+        mistakes: ["Knees swaying", "Dropping object"],
+        prescription: ["Daily practice"],
+        contraindications: ["Knee pain"],
+        id: "DRL-WGT-ROT-CHAIR-001",
+        primaryCategory: "WGT",
         level: 1,
-        fixesFaults: ["FLT-SEQ-EARLY_EXT", "FLT-STR-HEEL"],
-        rootCausePriority: 1.3
+        externalLink: "https://www.youtube.com/results?search_query=Golf+Drill+Stop+Swaying"
     },
-    "towel-behind-ball": {
-        slug: "towel-behind-ball",
-        title: "Towel Behind Ball",
-        category: "Low Point",
+    "fix-balance-loss": {
+        slug: "fix-balance-loss",
+        title: "Fix Balance Loss",
+        technicalName: "Feet-Together Drill",
+        appFix: "Fixes: poor foundation and swaying",
+        websiteWhy: "Improves centered rotation and balance by narrowing the base of support.",
+        bestFor: ["Toe strikes", "Falling toward the ball"],
+        category: "Weight Shift",
         duration: "5 min",
-        videoUrl: "/videos/towel-lowpoint.mp4",
-        externalLink: "https://www.youtube.com/results?search_query=Towel+Behind+Ball+Drill",
+        videoUrl: "/videos/feet-together.mp4",
         clubBadge: "Irons",
-        difficulty: "Advanced",
-        faultsFixed: ["Fat Shots", "Chunking", "Casting"],
-        diagnosis: {
-            condition: "This drill is best if you:",
-            symptoms: ["Hit the ground before the ball (Chunk)", "Lack compression", "Are afraid of tight lies"],
-            faceVsPath: "Low point must be AFTER the ball for iron shots."
-        },
-        whyItWorks: [
-            "High stakes feedback: If you cast or hang back, you hit the towel.",
-            "Forces a steep enough angle of attack to miss the obstacle."
-        ],
-        steps: [
-            "Lay a towel flat on the ground 4-6 inches behind your ball.",
-            "Hit the ball without touching the towel.",
-            "If you hit the towel, you casted or swayed back."
-        ],
-        checkpoints: ["Towel remains undisturbed.", "Divot starts after the ball."],
-        mistakes: ["Placing towel too close initially (start 6 inches back)."],
-        progression: [
-            { level: "b", task: "Small chips." },
-            { level: "i", task: "Full pitching wedge." },
-            { level: "a", task: "Long irons (very hard)." }
-        ],
-        contraindications: ["Do not use with Driver."],
-        prescription: ["Use for entire practice session if you are a 'digger'."],
-        // Normalized Data
-        id: "DRL-LP-IMP-FWD-001",
-        primaryCategory: "LP",
-        secondaryCategories: ["AOA"],
-        level: 4,
-        fixesFaults: ["FLT-LP-BEHIND", "FLT-AOA-NEG"],
-        rootCausePriority: 0.8
+        difficulty: "Beginner",
+        steps: ["Feet touching", "Smooth swings", "Maintain balance"],
+        checkpoints: ["Hold finish", "Center contact"],
+        mistakes: ["Falling over", "Swinging hard"],
+        prescription: ["Warm up"],
+        contraindications: ["None"],
+        id: "DRL-WGT-BAL-NARROW-001",
+        primaryCategory: "WGT",
+        level: 1,
+        externalLink: "https://www.youtube.com/results?search_query=Feet+Together+Golf+Drill"
     },
-    // --- LEVEL 9-18 EXPANSION DRILLS ---
-    "roll-release-drill": {
-        slug: "roll-release-drill",
-        title: "Roll-Release Drill",
+
+    // ==========================================================
+    // STRIKE LOCATION
+    // ==========================================================
+    "fix-heel-strikes": {
+        slug: "fix-heel-strikes",
+        title: "Fix Heel Strikes",
+        technicalName: "Wall Posture Drill",
+        appFix: "Fixes: crowding the ball / early extension",
+        websiteWhy: "Maintains space and posture through impact preventing the hips from thrusting.",
+        bestFor: ["Heel contact", "Standing up"],
+        category: "Strike",
+        duration: "5 min",
+        videoUrl: "/videos/wall-posture.mp4",
+        clubBadge: "Home",
+        difficulty: "Intermediate",
+        steps: ["Glutes on wall", "Simulate swing", "Keep contact"],
+        checkpoints: ["Butt stays on wall", "Spine angle maintained"],
+        mistakes: ["Coming off wall", "Sliding"],
+        prescription: ["Daily 5 min"],
+        contraindications: ["None"],
+        id: "DRL-STR-HEEL-WALL-001",
+        primaryCategory: "STR",
+        level: 2,
+        externalLink: "https://www.youtube.com/results?search_query=Wall+Drill+Golf+Early+Extension"
+    },
+    "fix-toe-strikes": {
+        slug: "fix-toe-strikes",
+        title: "Fix Toe Strikes",
+        technicalName: "Balance-Point Drill",
+        appFix: "Fixes: falling away from ball",
+        websiteWhy: "Improves centered rotation and spacing so the club reaches the ball.",
+        bestFor: ["Toe contact", "Loss of balance"],
+        category: "Strike",
+        duration: "5 min",
+        videoUrl: "/videos/balance-point.mp4",
+        clubBadge: "Irons",
+        difficulty: "Intermediate",
+        steps: ["Focus on weight in arches", "Swing smooth", "Hold finish"],
+        checkpoints: ["Balanced finish", "Solid contact"],
+        mistakes: ["Weight on heels", "Pulling away"],
+        prescription: ["10 reps"],
+        contraindications: ["Shanks"],
+        id: "DRL-STR-TOE-BAL-001",
+        primaryCategory: "STR",
+        level: 2,
+        externalLink: "https://www.youtube.com/results?search_query=Golf+Balance+Drills"
+    },
+    "fix-pop-ups": {
+        slug: "fix-pop-ups",
+        title: "Fix Driver Pop-Ups",
+        technicalName: "Tee Height Ladder Drill",
+        appFix: "Fixes: steep chopping angle",
+        websiteWhy: "Improves strike location and angle of attack by challenging depth control.",
+        bestFor: ["Sky balls", "High spin"],
+        category: "Strike",
+        duration: "5 min",
+        videoUrl: "/videos/tee-ladder.mp4",
+        clubBadge: "Driver",
+        difficulty: "Intermediate",
+        steps: ["Low tee hit", "Medium tee hit", "High tee hit"],
+        checkpoints: ["Sweep don't dig", "Center face"],
+        mistakes: ["Chopping", "Ignoring height"],
+        prescription: ["3 cycles"],
+        contraindications: ["Thin shots"],
+        id: "DRL-STR-DRV-POP-001",
+        primaryCategory: "STR",
+        level: 3,
+        externalLink: "https://www.youtube.com/results?search_query=Driver+Tee+Height+Drill"
+    },
+
+    // ==========================================================
+    // ANGLE OF ATTACK
+    // ==========================================================
+    "fix-low-iron": {
+        slug: "fix-low-iron",
+        title: "Fix Low Iron Flight",
+        technicalName: "Finish-Height Control Drill",
+        appFix: "Fixes: delofting and hooding",
+        websiteWhy: "Balances dynamic loft at impact by encouraging a full high release.",
+        bestFor: ["Low bullets", "Distance loss"],
+        category: "Angle of Attack",
+        duration: "5 min",
+        videoUrl: "/videos/finish-high.mp4",
+        clubBadge: "Irons",
+        difficulty: "Beginner",
+        steps: ["Hit shot", "Hands high at finish", "Show belt buckle"],
+        checkpoints: ["High hands", "Full turn"],
+        mistakes: ["Abbreviated finish", "Chicken wing"],
+        prescription: ["10 reps"],
+        contraindications: ["Ballooning"],
+        id: "DRL-AOA-TRAJ-HIGH-001",
+        primaryCategory: "AOA",
+        level: 2,
+        externalLink: "https://www.youtube.com/results?search_query=Golf+Hit+Higher+Irons"
+    },
+    "fix-ballooning": {
+        slug: "fix-ballooning",
+        title: "Fix Ballooning Shots",
+        technicalName: "Flighted Shot Drill",
+        appFix: "Fixes: adding loft / flipping",
+        websiteWhy: "Reduces excess dynamic loft by truncating the follow-through.",
+        bestFor: ["High spin", "Short misses"],
+        category: "Angle of Attack",
+        duration: "5 min",
+        videoUrl: "/videos/flighted.mp4",
+        clubBadge: "Irons",
+        difficulty: "Intermediate",
+        steps: ["Ball back", "Hands forward", "Low finish"],
+        checkpoints: ["Low flight", "Hands ahead"],
+        mistakes: ["Scooping", "High finish"],
+        prescription: ["15 reps"],
+        contraindications: ["Low shots"],
+        id: "DRL-AOA-TRAJ-LOW-001",
+        primaryCategory: "AOA",
+        level: 3,
+        externalLink: "https://www.youtube.com/results?search_query=Flighting+Irons+Drill"
+    },
+    // ==========================================================
+    // TEMPO / SPEED
+    // ==========================================================
+    "fix-lack-distance": {
+        slug: "fix-lack-distance",
+        title: "Fix Lack of Distance",
+        technicalName: "Step-Through Speed Drill",
+        appFix: "Fixes: slow hips and stall",
+        websiteWhy: "Improves sequencing for speed generation using ground force.",
+        bestFor: ["Short drives", "No compression"],
+        category: "Speed",
+        duration: "5 min",
+        videoUrl: "/videos/speed-step.mp4",
+        clubBadge: "Driver",
+        difficulty: "Advanced",
+        steps: ["Backswing", "Stomp lead foot", "Rip it"],
+        checkpoints: ["Loud whoosh", "Aggressive step"],
+        mistakes: ["Timing off", "Arms only"],
+        prescription: ["10 max effort"],
+        contraindications: ["Back pain"],
+        id: "DRL-SPD-SEQ-STEP-001",
+        primaryCategory: "SEQ",
+        level: 4,
+        externalLink: "https://www.youtube.com/results?search_query=Dr+Kwon+Step+Drill"
+    },
+    "fix-deceleration": {
+        slug: "fix-deceleration",
+        title: "Fix Deceleration",
+        technicalName: "Continuous Motion Drill",
+        appFix: "Fixes: quitting on the shot",
+        websiteWhy: "Encourages commitment through impact by keeping the club moving.",
+        bestFor: ["Short chips", "Fear-based swings"],
+        category: "Tempo",
+        duration: "5 min",
+        videoUrl: "/videos/continuous.mp4",
+        clubBadge: "Wedge",
+        difficulty: "Beginner",
+        steps: ["Swing back and through without stopping", "Clip grass each time", "Build speed"],
+        checkpoints: ["Constant motion", "Brush sound"],
+        mistakes: ["Stopping", "Digging"],
+        prescription: ["1 min continuous"],
+        contraindications: ["None"],
+        id: "DRL-TMP-FLOW-CONT-001",
+        primaryCategory: "TMP",
+        level: 1,
+        externalLink: "https://www.youtube.com/results?search_query=Continuous+Motion+Golf+Drill"
+    },
+
+    // ==========================================================
+    // SHORT GAME
+    // ==========================================================
+    "fix-chunked-chips": {
+        slug: "fix-chunked-chips",
+        title: "Fix Chunked Chips",
+        technicalName: "Lead-Arm Only Chip Drill",
+        appFix: "Fixes: flipping and digging",
+        websiteWhy: "Improves low-point control and body rotation for clean contact.",
+        bestFor: ["Heavy chips", "Poor contact"],
+        category: "Short Game",
+        duration: "5 min",
+        videoUrl: "/videos/lead-arm-chip.mp4",
+        clubBadge: "Wedge",
+        difficulty: "Advanced",
+        steps: ["Hold with lead hand only", "Pivot body", "Brush grass"],
+        checkpoints: ["Body turns", "No dig"],
+        mistakes: ["Wrist flick", "Stabbing"],
+        prescription: ["20 reps"],
+        contraindications: ["Weak wrists"],
+        id: "DRL-SG-CHIP-LEAD-001",
+        primaryCategory: "LP",
+        level: 4,
+        externalLink: "https://www.youtube.com/results?search_query=Left+Hand+Only+Chipping"
+    },
+    "fix-bladed-chips": {
+        slug: "fix-bladed-chips",
+        title: "Fix Bladed Chips",
+        technicalName: "Handle-Forward Chip Drill",
+        appFix: "Fixes: rising up and scooping",
+        websiteWhy: "Stabilizes loft and strike by keeping the handle leading the clubhead.",
+        bestFor: ["Thin chips", "Shots across green"],
+        category: "Short Game",
+        duration: "5 min",
+        videoUrl: "/videos/handle-chip.mp4",
+        clubBadge: "Wedge",
+        difficulty: "Beginner",
+        steps: ["Setup hands allowed", "Keep them there", "Rock shoulders"],
+        checkpoints: ["Low trajectory", "Check spin"],
+        mistakes: ["Backing up", "Flipping"],
+        prescription: ["20 reps"],
+        contraindications: ["Digging"],
+        id: "DRL-SG-CHIP-FWD-001",
+        primaryCategory: "REL",
+        level: 2,
+        externalLink: "https://www.youtube.com/results?search_query=Chipping+Hands+Forward"
+    },
+    "fix-distance-control": {
+        slug: "fix-distance-control",
+        title: "Fix Distance Control",
+        technicalName: "Landing Spot Drill",
+        appFix: "Fixes: random power and guess work",
+        websiteWhy: "Creates predictable carry distances by focusing on landing zones not the hole.",
+        bestFor: ["Long or short chips", "Poor feel"],
+        category: "Short Game",
+        duration: "10 min",
+        videoUrl: "/videos/landing-spot.mp4",
+        clubBadge: "Wedge",
+        difficulty: "Intermediate",
+        steps: ["Pick spot", "Land on spot", "Ignore rollout"],
+        checkpoints: ["Hit spot", "Consistent flight"],
+        mistakes: ["Looking at hole", "Changing tempo"],
+        prescription: ["10 to each spot"],
+        contraindications: ["None"],
+        id: "DRL-SG-DIST-LAND-001",
+        primaryCategory: "TMP",
+        level: 3,
+        externalLink: "https://www.youtube.com/results?search_query=Chipping+Landing+Spot"
+    },
+
+    // ==========================================================
+    // MENTAL / PRESSURE
+    // ==========================================================
+    "fix-practice-drop-off": {
+        slug: "fix-practice-drop-off",
+        title: "Fix Practice-to-Course Drop-Off",
+        technicalName: "Random Target Drill",
+        appFix: "Fixes: block practice mindset",
+        websiteWhy: "Improves adaptability and focus by simulating on-course conditions.",
+        bestFor: ["Great practice, poor rounds"],
+        category: "Mental",
+        duration: "10 min",
+        videoUrl: "/videos/random-target.mp4",
+        clubBadge: "All Clubs",
+        difficulty: "Intermediate",
+        steps: ["New target every shot", "Full routine", "Score yourself"],
+        checkpoints: ["Full commitment", "One chance"],
+        mistakes: ["Raking balls", "Same target"],
+        prescription: ["Last 15 mins of range"],
+        contraindications: ["Technique work"],
+        id: "DRL-MEN-FOC-RAND-001",
+        primaryCategory: "MEN",
+        level: 3,
+        externalLink: "https://www.youtube.com/results?search_query=Random+Target+Practice+Golf"
+    },
+    "fix-pressure-tension": {
+        slug: "fix-pressure-tension",
+        title: "Fix Tension Under Pressure",
+        technicalName: "Breath Reset Drill",
+        appFix: "Fixes: locking up and freezing",
+        websiteWhy: "Reduces grip and body tension to restore natural rhythm.",
+        bestFor: ["Tight swings", "Short misses"],
+        category: "Mental",
+        duration: "1 min",
+        videoUrl: "/videos/breath-reset.mp4",
+        clubBadge: "All Clubs",
+        difficulty: "Beginner",
+        steps: ["Deep breath in nose", "Long exhale mouth", "Start swing on empty"],
+        checkpoints: ["Loose muscles", "Clear mind"],
+        mistakes: ["Holding breath", "Rushing"],
+        prescription: ["Pre-shot routine"],
+        contraindications: ["None"],
+        id: "DRL-MEN-PRE-BREATH-001",
+        primaryCategory: "MEN",
+        level: 1,
+        externalLink: "https://www.youtube.com/results?search_query=Box+Breathing+Golf"
+    },
+    // Adding Hook/Push-Block back in if they were missed in the new list but existed before
+    "fix-hook": {
+        slug: "fix-hook",
+        title: "Fix a Hook",
+        technicalName: "Hold-Off Finish Drill",
+        appFix: "Fixes: closed face and flipping",
+        websiteWhy: "Controls the release through impact, preventing the clubface from closing too quickly.",
+        bestFor: ["Ball curves left", "Low, snapping shots"],
+        category: "Face Control",
+        duration: "5 min",
+        videoUrl: "/videos/hold-off.mp4",
+        clubBadge: "Irons",
+        difficulty: "Intermediate",
+        steps: ["Hit shot", "Hold finish low", "Face open (toe up)"],
+        checkpoints: ["Face square at finish", "No flip"],
+        mistakes: ["Full release", "High finish"],
+        prescription: ["10 reps"],
+        contraindications: ["Slices"],
+        id: "DRL-FCE-REL-HOLD-001",
+        primaryCategory: "FCE",
+        level: 3,
+        externalLink: "https://www.youtube.com/results?search_query=Hold+Off+Finish+Golf+Drill"
+    },
+    "fix-push-block": {
+        slug: "fix-push-block",
+        title: "Fix Pushes and Blocks",
+        technicalName: "Split-Grip Release Drill",
+        appFix: "Fixes: open face and blocking",
+        websiteWhy: "Improves face rotation through impact, helping the ball start closer to the target.",
+        bestFor: ["Ball starts right", "Shots that never curve back"],
         category: "Release",
         duration: "5 min",
-        videoUrl: "/videos/roll-release.mp4",
-        externalLink: "https://www.youtube.com/results?search_query=Roll+Release+Golf+Drill",
+        videoUrl: "/videos/split-grip.mp4",
         clubBadge: "Irons",
         difficulty: "Beginner",
-        faultsFixed: ["Blocks", "Weak Fades", "Slice"],
-        diagnosis: {
-            condition: "This drill is best if you:",
-            symptoms: ["Hit weak shots to the right", "Have a 'chicken wing' finish", "Lack clubhead speed"],
-            faceVsPath: "If the face doesn't rotate square, you must swing left to compensate (slice path)."
-        },
-        whyItWorks: [
-            "Teaches the feeling of the forearms rotating over each other.",
-            "Visualises the release using a toilet paper roll (optional aid).",
-            "Promotes a full, free release."
-        ],
-        steps: [
-            "Slide a toilet paper roll down the shaft to the head.",
-            "Swing back and through.",
-            "Try to keep the roll at the bottom by maintaining centrifugal force.",
-            "Feel the forearms cross over in the follow through."
-        ],
-        checkpoints: ["Right arm crosses over left arm.", "Finish with high hands."],
-        mistakes: ["Holding on too tight.", "Stopping the body rotation."],
-        progression: [
-            { level: "b", task: "Practice swings." },
-            { level: "i", task: "Hit balls intending to hook." },
-        ],
-        contraindications: ["If you already hook the ball, avoid this."],
-        prescription: ["10 reps feeling the 'roll'."],
-        // Normalized Data
-        id: "DRL-REL-IMP-ROLL-001",
+        steps: ["Split hands", "Roll forearms", "Square face"],
+        checkpoints: ["Toe up finish", "Arms crossed"],
+        mistakes: ["Holding off", "Blocking"],
+        prescription: ["10 reps"],
+        contraindications: ["Hooks"],
+        id: "DRL-REL-ROT-SPLIT-001",
         primaryCategory: "REL",
-        secondaryCategories: ["FCE"],
         level: 2,
-        fixesFaults: ["FLT-FCE-OPEN", "FLT-REL-BLOCK"],
-        rootCausePriority: 1.0
-    },
-    "headcover-takeaway": {
-        slug: "headcover-takeaway",
-        title: "Headcover Takeaway",
-        category: "Takeaway",
-        duration: "3 min",
-        videoUrl: "/videos/headcover-takeaway.mp4",
-        externalLink: "https://www.youtube.com/results?search_query=Headcover+Behind+Hands+Takeway+Drill",
-        clubBadge: "Driver / Irons",
-        difficulty: "Beginner",
-        faultsFixed: ["Inside Takeaway", "Snap Hooks", "Blocks"],
-        diagnosis: {
-            condition: "This drill is best if you:",
-            symptoms: ["Whip the club inside effectively", "Hit hooks or blocks", "Feel 'stuck' coming down"],
-            faceVsPath: "An inside takeaway often leads to an 'over the top' correction or stuck downswing."
-        },
-        whyItWorks: [
-            "Forces a wide, one-piece takeaway.",
-            "Prevents hands from rolling the face open early.",
-            "Keeps the club in front of the chest."
-        ],
-        steps: [
-            "Place a headcover 18 inches behind your ball on the target line.",
-            "Start your backswing by dragging the club back LOW.",
-            "Push the headcover straight back (not inside).",
-        ],
-        checkpoints: ["Headcover moves straight back.", "Clubface stays looking at ball."],
-        mistakes: ["Lifting the club over the cover.", "Rolling wrists immediately."],
-        progression: [
-            { level: "b", task: "Push headcover back." },
-            { level: "i", task: "Hit ball after pushing back." },
-        ],
-        contraindications: ["None. Good for all."],
-        prescription: ["5 reps before hitting."],
-        // Normalized Data
-        id: "DRL-PTH-TAKE-WIDE-001",
-        primaryCategory: "PTH",
-        secondaryCategories: ["SEQ"],
-        level: 1,
-        fixesFaults: ["FLT-PTH-INSIDE_TAKEAWAY"],
-        rootCausePriority: 1.3
-    },
-    "arm-sync-drill": {
-        slug: "arm-sync-drill",
-        title: "Arm Sync Drill",
-        category: "Sequencing",
-        duration: "5 min",
-        videoUrl: "/videos/arm-sync.mp4",
-        externalLink: "https://www.youtube.com/results?search_query=Golf+Arm+Swing+Synchronization+Drill",
-        clubBadge: "Driver / Irons",
-        difficulty: "Intermediate",
-        faultsFixed: ["Overswing", "Loss of Control", "Timing Issues"],
-        diagnosis: {
-            condition: "This drill is best if you:",
-            symptoms: ["Feel arms and body are disconnected", "Hit inconsistent fat/thin shots", "Swing too long"],
-            faceVsPath: "Connection is key to a repeatable low point."
-        },
-        whyItWorks: [
-            "Syncs the arm swing to the torso rotation.",
-            "Prevents the arms from 'running off' on their own.",
-            "Tightens the backswing."
-        ],
-        steps: [
-            "Place a towel or headcover under both armpits.",
-            "Make 3/4 swings without dropping the towel.",
-            "Feel the chest moving the arms."
-        ],
-        checkpoints: ["Towel stays in place.", "Swing feels 'shorter' but more solid."],
-        mistakes: ["Using too large a towel.", "Trying to swing perfectly full."],
-        progression: [
-            { level: "b", task: "Pitch shots." },
-            { level: "i", task: "Full irons." },
-            { level: "a", task: "Driver (hard)." }
-        ],
-        contraindications: ["Limited flexibility."],
-        prescription: ["20 balls with towel."],
-        // Normalized Data
-        id: "DRL-SEQ-CONN-SYNC-001",
-        primaryCategory: "SEQ",
-        secondaryCategories: ["WGT"],
-        level: 3,
-        fixesFaults: ["FLT-SEQ-OVERSWING", "FLT-SEQ-DISCONNECT"],
-        rootCausePriority: 1.2
-    },
-    "lead-wrist-bow": {
-        slug: "lead-wrist-bow",
-        title: "Lead Wrist Bow",
-        category: "Wrist Angles",
-        duration: "5 min",
-        videoUrl: "/videos/wrist-bow.mp4",
-        externalLink: "https://www.youtube.com/results?search_query=Lead+Wrist+Bow+Golf+Drill",
-        clubBadge: "Irons",
-        difficulty: "Advanced",
-        faultsFixed: ["Cupped Wrist", "Open Face", "Weak Slice"],
-        diagnosis: {
-            condition: "This drill is best if you:",
-            symptoms: ["Slice the ball", "Add loft (hit it high and short)", "Have a cupped lead wrist at top"],
-            faceVsPath: "A bowed wrist closes the face, countering a slice path."
-        },
-        whyItWorks: [
-            "Strengthens the clubface position.",
-            "Encourages shaft lean at impact.",
-            "De-lofts the club for more distance."
-        ],
-        steps: [
-            "At the top of backswing, feel like you are revving a motorcycle throttle.",
-            "This bows the lead wrist (knuckles directly to sky).",
-            "Hold that angle down to impact."
-        ],
-        checkpoints: ["Logo of glove faces target at top.", "Shaft lean at impact."],
-        mistakes: ["Bowing too early (in takeaway).", "Gripping too tight."],
-        progression: [
-            { level: "b", task: "Top of swing checkpoints." },
-            { level: "i", task: "Slow motion hits." },
-            { level: "a", task: "Full speed." }
-        ],
-        contraindications: ["If you already hook, DO NOT do this."],
-        prescription: ["10 slow motion rehearsals."],
-        // Normalized Data
-        id: "DRL-FCE-IMP-CLOSE-001",
-        primaryCategory: "FCE",
-        secondaryCategories: ["AOA"],
-        level: 2,
-        fixesFaults: ["FLT-FCE-CUPPED", "FLT-FCE-OPEN"],
-        rootCausePriority: 1.0
-    },
-    "gate-putting": {
-        slug: "gate-putting",
-        title: "Tiger's Gate Drill",
-        category: "Putting",
-        duration: "10 min",
-        videoUrl: "/videos/gate-putting.mp4",
-        externalLink: "https://www.youtube.com/results?search_query=Tiger+Woods+Gate+Putting+Drill",
-        clubBadge: "Putter",
-        difficulty: "Advanced",
-        faultsFixed: ["Heel/Toe Strikes", "Push/Pull"],
-        diagnosis: {
-            condition: "This drill is best if you:",
-            symptoms: ["Miss short putts", "Hit it off the toe/heel"],
-            faceVsPath: "Center contact is the #1 factor in distance control."
-        },
-        whyItWorks: [
-            "Forces the putter to move on a pure path.",
-            "Immediate feedback on strikes.",
-            "Used by Tiger Woods for 20 years."
-        ],
-        steps: [
-            "Place two tees just wider than your putter head.",
-            "Place ball in middle.",
-            "Stroke putt without hitting tees.",
-            "(Optional) Add a coin gate 3 feet in front for start line."
-        ],
-        checkpoints: ["Putter passes cleanly.", "Ball rolls pure."],
-        mistakes: ["Tees too wide (too easy)."],
-        progression: [
-            { level: "b", task: "Wide gate." },
-            { level: "i", task: "Tight gate." },
-            { level: "a", task: "One hand only." }
-        ],
-        contraindications: ["None."],
-        prescription: ["50 made putts."],
-        // Normalized Data
-        id: "DRL-STR-PUTT-GATE-001",
-        primaryCategory: "STR",
-        secondaryCategories: ["PTH"],
-        level: 4,
-        fixesFaults: ["FLT-STR-TOE", "FLT-STR-HEEL"],
-        rootCausePriority: 0.8
+        externalLink: "https://www.youtube.com/results?search_query=Split+Grip+Golf+Drill"
     }
 };
 
