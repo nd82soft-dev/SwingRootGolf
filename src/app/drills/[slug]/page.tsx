@@ -132,12 +132,30 @@ export default function DrillDetail({ params }: { params: { slug: string } }) {
                                     <span className="w-8 h-8 rounded bg-white/10 flex items-center justify-center text-sm">▶</span>
                                     Demonstration
                                 </h2>
-                                <div className="aspect-video w-full bg-black rounded-2xl border border-white/10 flex items-center justify-center relative overflow-hidden group cursor-pointer">
-                                    {/* Placeholder for embedded video */}
-                                    <div className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center hover:scale-110 transition-transform">
-                                        <div className="w-0 h-0 border-t-8 border-t-transparent border-l-[16px] border-l-white border-b-8 border-b-transparent ml-1"></div>
-                                    </div>
-                                    <p className="absolute bottom-4 text-sm font-medium text-white/50">Video Placeholder</p>
+                                <div className="aspect-video w-full bg-black rounded-2xl border border-white/10 flex items-center justify-center relative overflow-hidden group">
+                                    {data.externalLink ? (
+                                        <a
+                                            href={data.externalLink}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="absolute inset-0 flex items-center justify-center bg-black/50 hover:bg-black/40 transition-colors"
+                                        >
+                                            <div className="text-center">
+                                                <div className="w-16 h-16 rounded-full bg-[#FF0000] flex items-center justify-center mx-auto mb-4 hover:scale-110 transition-transform shadow-lg">
+                                                    <div className="w-0 h-0 border-t-8 border-t-transparent border-l-[16px] border-l-white border-b-8 border-b-transparent ml-1"></div>
+                                                </div>
+                                                <p className="text-white font-bold text-lg">Watch on YouTube</p>
+                                                <p className="text-white/60 text-sm mt-1">Opens in new tab</p>
+                                            </div>
+                                        </a>
+                                    ) : (
+                                        <>
+                                            <div className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
+                                                <div className="w-0 h-0 border-t-8 border-t-transparent border-l-[16px] border-l-white border-b-8 border-b-transparent ml-1"></div>
+                                            </div>
+                                            <p className="absolute bottom-4 text-sm font-medium text-white/50">Video Placeholder</p>
+                                        </>
+                                    )}
                                 </div>
                             </section>
 
