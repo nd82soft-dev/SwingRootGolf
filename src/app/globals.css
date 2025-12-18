@@ -1,25 +1,76 @@
 @import "tailwindcss";
 
+@theme {
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+}
+
 :root {
-  --background: #0E0F12;
-  --foreground: #E8E8E8;
-  --primary: #6B9B78;
-  --primary-foreground: #0E0F12;
-  --muted: #8A8A8E;
-  --card: #141519;
-  --border: rgba(255, 255, 255, 0.08);
+  --background: 220 12% 6%;
+  --foreground: 0 0% 100%;
+  --card: 240 3% 11%;
+  --card-foreground: 0 0% 100%;
+  --popover: 220 12% 8%;
+  --popover-foreground: 0 0% 100%;
+  --primary: 135 18% 51%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 220 12% 8%;
+  --secondary-foreground: 0 0% 100%;
+  --muted: 220 12% 15%;
+  --muted-foreground: 240 2% 55%;
+  --accent: 135 18% 51%;
+  --accent-foreground: 0 0% 100%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 220 8% 15%;
+  --input: 220 8% 15%;
+  --ring: 135 18% 51%;
+  --radius: 0.5rem;
+  --section-alt: 220 17% 8%;
 }
 
 @layer base {
   body {
-    background-color: var(--background);
-    color: var(--foreground);
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
     @apply antialiased;
+  }
+
+  * {
+    @apply border-border;
   }
 }
 
 .glass-panel {
   background: rgba(255, 255, 255, 0.03);
   backdrop-filter: blur(10px);
-  border: 1px solid var(--border);
+  border: 1px solid hsl(var(--border));
 }
