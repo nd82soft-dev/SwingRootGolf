@@ -1,15 +1,16 @@
 import Link from "next/link";
 import { getDrillData } from "@/data/drills";
 
-export default function DrillDetail({ params }: { params: { slug: string } }) {
-    const data = getDrillData(params.slug);
+export default async function DrillDetail({ params }: { params: Promise<{ slug: string }> }) {
+    const { slug } = await params;
+    const data = getDrillData(slug);
 
     if (!data) {
         return (
             <div className="min-h-screen bg-[#0E0F12] flex items-center justify-center">
                 <div className="text-center">
                     <h1 className="text-2xl text-white font-bold mb-4">Drill Not Found</h1>
-                    <p className="text-[#8A8A8E] mb-6">Could not find drill: {params.slug}</p>
+                    <p className="text-[#8A8A8E] mb-6">Could not find drill: {slug}</p>
                     <Link href="/drills" className="text-[#6B9B78] hover:underline">Back to Library</Link>
                 </div>
             </div>
