@@ -207,8 +207,8 @@ export default function Home() {
         <section className="py-24 px-6 bg-[#141519]">
           <div className="container mx-auto max-w-3xl text-center">
             <p className="text-xl md:text-2xl text-white font-medium leading-relaxed">
-              One lesson can cost more than a month of Swing Root.<br />
-              <span className="text-[#8A8A8E]">This helps you make every practice session count.</span>
+              Perfect for practice between lessons.<br />
+              <span className="text-[#8A8A8E]">Swing Root helps you maintain the right feel and focus, so you get the most out of every coaching session.</span>
             </p>
           </div>
         </section>
