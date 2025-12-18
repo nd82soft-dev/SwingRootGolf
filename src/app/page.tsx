@@ -4,7 +4,7 @@ import Image from "next/image";
 export default function Home() {
   return (
     <div className="min-h-screen flex flex-col font-sans bg-[#0E0F12] text-white">
-      {/* Navbar - Preserved */}
+      {/* Navbar */}
       <header className="fixed top-0 w-full z-50 glass-panel border-b border-white/5 bg-[#0E0F12]/90 backdrop-blur-md">
         <div className="container mx-auto px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -36,226 +36,163 @@ export default function Home() {
 
       <main className="flex-1">
 
-        {/* 1. HERO SECTION (ABOVE THE FOLD) */}
-        <section className="pt-40 pb-20 px-6">
-          <div className="container mx-auto max-w-6xl">
-            <div className="max-w-3xl">
-              <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-white leading-[1.1] mb-8">
-                Fix the cause of your golf swing issues — not the symptoms.
-              </h1>
-              <p className="text-xl md:text-2xl text-[#8A8A8E] leading-relaxed mb-10 max-w-2xl">
-                Swing Root analyzes your swing, identifies the primary root cause, and gives you one clear drill to practice.
+        {/* 1. HERO: MIRROR THE PROBLEM */}
+        <section className="pt-40 pb-24 px-6">
+          <div className="container mx-auto max-w-4xl text-center">
+            <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-white leading-[1.1] mb-8">
+              You don’t need more tips. <br />
+              <span className="text-[#6B9B78]">You need the right fix.</span>
+            </h1>
+            <p className="text-xl md:text-2xl text-[#8A8A8E] leading-relaxed mb-10 max-w-2xl mx-auto">
+              Most swing problems come from one underlying cause.<br />
+              Swing Root helps you find it — and fix it.
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+              <Link
+                href="/dashboard"
+                className="px-10 py-5 bg-[#6B9B78] hover:bg-[#5a8264] text-[#0E0F12] font-bold rounded-full text-xl transition-all hover:scale-105 w-full sm:w-auto"
+              >
+                Analyze your swing
+              </Link>
+              <Link
+                href="#problem-entry"
+                className="text-white font-medium hover:text-[#6B9B78] transition-colors decoration-1 underline-offset-4 hover:underline"
+              >
+                Why am I slicing?
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* 2. PAIN VALIDATION */}
+        <section className="py-24 px-6 bg-white/[0.02] border-y border-white/5">
+          <div className="container mx-auto max-w-3xl">
+            <p className="text-xl text-white font-medium mb-8 text-center">If golf improvement feels confusing, you’re not alone.</p>
+
+            <div className="space-y-4 mb-12">
+              <PainPoint text="You watch videos, but nothing sticks" />
+              <PainPoint text="One fix helps… then something else breaks" />
+              <PainPoint text="You don’t know what actually matters" />
+              <PainPoint text="Practice feels busy, not productive" />
+            </div>
+
+            <div className="text-center">
+              <p className="text-2xl text-[#8A8A8E] font-medium">That’s not a motivation problem. It’s a <span className="text-white">clarity problem.</span></p>
+            </div>
+          </div>
+        </section>
+
+        {/* 3. THE CORE INSIGHT */}
+        <section className="py-32 px-6">
+          <div className="container mx-auto max-w-4xl text-center">
+            <h2 className="text-sm font-bold text-[#8A8A8E] uppercase tracking-wider mb-6">The Approach</h2>
+            <h3 className="text-4xl md:text-5xl font-bold text-white mb-8">Most golfers are fixing symptoms.</h3>
+
+            <div className="max-w-3xl mx-auto space-y-8 mb-12">
+              <p className="text-xl text-[#8A8A8E] leading-relaxed">
+                A slice, a hook, or fat contact isn’t the real problem.<br />
+                It’s the result of something happening earlier in the swing.
               </p>
-              <div className="flex flex-col sm:flex-row items-center gap-6">
-                <Link
-                  href="/dashboard"
-                  className="px-8 py-4 bg-[#6B9B78] hover:bg-[#5a8264] text-[#0E0F12] font-bold rounded-full text-lg transition-transform hover:scale-105 w-full sm:w-auto text-center"
-                >
-                  Analyze your swing
-                </Link>
-                <Link
-                  href="#problem-entry"
-                  className="text-white font-medium hover:text-[#6B9B78] transition-colors decoration-1 underline-offset-4 hover:underline"
-                >
-                  Why am I slicing?
-                </Link>
-              </div>
+            </div>
+
+            <div className="inline-block px-8 py-4 border border-[#6B9B78] rounded-2xl bg-[#6B9B78]/5">
+              <p className="text-xl md:text-2xl text-white font-bold">
+                Fix the cause — and multiple problems often improve at once.
+              </p>
             </div>
           </div>
         </section>
 
-        {/* 2. TRUST & POSITIONING STRIP */}
-        <section className="border-y border-white/5 bg-white/[0.02] py-8">
-          <div className="container mx-auto px-6">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left md:divide-x md:divide-white/10">
-              <div className="px-4">
-                <p className="text-[#8A8A8E] font-medium text-sm md:text-base">Built on the same principles used by elite coaches.</p>
-              </div>
-              <div className="px-4">
-                <p className="text-[#8A8A8E] font-medium text-sm md:text-base">One root cause. One drill. No conflicting advice.</p>
-              </div>
-              <div className="px-4">
-                <p className="text-[#8A8A8E] font-medium text-sm md:text-base">Designed for real practice — not endless tips.</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* 3. HOW IT WORKS (3-STEP FLOW) */}
-        <section id="how-it-works" className="py-24 px-6">
+        {/* 4. WHAT MAKES SWING ROOT DIFFERENT */}
+        <section className="py-24 px-6 bg-[#141519]">
           <div className="container mx-auto max-w-6xl">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
-              {/* Connector line for desktop */}
-              <div className="hidden md:block absolute top-[2.5rem] left-0 w-full h-px bg-white/10 -z-10"></div>
-
-              {/* Step 1 */}
-              <div className="relative">
-                <div className="w-20 h-20 bg-[#1C1C1E] border border-white/10 rounded-full flex items-center justify-center text-2xl font-bold text-white mb-8 z-10 mx-auto md:mx-0">
-                  1
-                </div>
-                <h3 className="text-xl font-bold text-white mb-4 text-center md:text-left">Analyze</h3>
-                <p className="text-[#8A8A8E] leading-relaxed text-center md:text-left">
-                  Record or upload your swing in the app.
-                </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+              <div>
+                <h3 className="text-2xl font-bold text-white mb-4">One root cause</h3>
+                <p className="text-[#8A8A8E] leading-relaxed">We identify the primary movement pattern affecting your swing.</p>
               </div>
-
-              {/* Step 2 */}
-              <div className="relative">
-                <div className="w-20 h-20 bg-[#1C1C1E] border border-white/10 rounded-full flex items-center justify-center text-2xl font-bold text-white mb-8 z-10 mx-auto md:mx-0">
-                  2
-                </div>
-                <h3 className="text-xl font-bold text-white mb-4 text-center md:text-left">Identify</h3>
-                <p className="text-[#8A8A8E] leading-relaxed text-center md:text-left">
-                  We determine the primary root cause affecting your ball flight.
-                </p>
+              <div>
+                <h3 className="text-2xl font-bold text-white mb-4">One drill</h3>
+                <p className="text-[#8A8A8E] leading-relaxed">You practice a single, focused drill — not five “just in case.”</p>
               </div>
-
-              {/* Step 3 */}
-              <div className="relative">
-                <div className="w-20 h-20 bg-[#6B9B78] text-[#0E0F12] rounded-full flex items-center justify-center text-2xl font-bold mb-8 z-10 mx-auto md:mx-0">
-                  3
-                </div>
-                <h3 className="text-xl font-bold text-white mb-4 text-center md:text-left">Practice</h3>
-                <p className="text-[#8A8A8E] leading-relaxed text-center md:text-left">
-                  You get one focused drill and a guided practice session.
-                </p>
+              <div>
+                <h3 className="text-2xl font-bold text-white mb-4">Re-test</h3>
+                <p className="text-[#8A8A8E] leading-relaxed">You check progress and adjust. No guessing.</p>
               </div>
             </div>
-
-            <div className="text-center mt-16 pt-8 border-t border-white/5">
-              <p className="text-xl text-white font-medium">Then you re-test. No guessing. No stacking fixes.</p>
+            <div className="mt-16 text-center border-t border-white/5 pt-8">
+              <p className="text-lg text-[#6B9B78] font-bold">This is how good coaches actually teach.</p>
             </div>
           </div>
         </section>
 
-        {/* 4. “WHY AM I…?” PROBLEM ENTRY POINT */}
+        {/* 5. SHOW THE PATH */}
+        <section id="how-it-works" className="py-32 px-6">
+          <div className="container mx-auto max-w-5xl">
+            <h2 className="text-3xl font-bold text-white mb-16 text-center">How it works</h2>
+
+            <div className="space-y-12 relative">
+              <div className="absolute left-[27px] top-4 bottom-4 w-0.5 bg-white/10 hidden md:block"></div>
+
+              <StepRow number="1" title="Analyze" desc="Upload or record your swing in the app." />
+              <StepRow number="2" title="Get clarity" desc="We identify the main issue affecting your ball flight." />
+              <StepRow number="3" title="Practice with purpose" desc="One drill. One focus. A guided session." />
+              <StepRow number="4" title="Re-check" desc="Confirm progress or adjust the plan." last />
+            </div>
+          </div>
+        </section>
+
+        {/* 6. “WHY AM I…?” ENTRY */}
         <section id="problem-entry" className="py-24 px-6 bg-[#141519]">
           <div className="container mx-auto max-w-6xl">
-            <div className="max-w-3xl mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Start with the problem you’re seeing.</h2>
-              <p className="text-[#8A8A8E] text-lg">
-                Most swing issues have one main cause. We explain what it is and how to fix it.
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Start with what you’re seeing on the course.</h2>
+              <p className="text-[#8A8A8E] text-lg max-w-2xl mx-auto">
+                We explain the most common swing problems — and what actually causes them.
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <ProblemCard
-                title="Why am I slicing the ball?"
-                href="/start-here?miss=slice"
-              />
-              <ProblemCard
-                title="Why do I hit my irons fat?"
-                href="/start-here?miss=fat-thin"
-              />
-              <ProblemCard
-                title="Why do I thin shots?"
-                href="/start-here?miss=fat-thin"
-              />
-              <ProblemCard
-                title="Why do my drives feel weak?"
-                href="/start-here?miss=distance"
-              />
-              <ProblemCard
-                title="Why is my contact inconsistent?"
-                href="/start-here?miss=panic"
-              />
+              <ProblemCard title="Why am I slicing the ball?" href="/start-here?miss=slice" />
+              <ProblemCard title="Why do I hit my irons fat?" href="/start-here?miss=fat-thin" />
+              <ProblemCard title="Why do I thin shots?" href="/start-here?miss=fat-thin" />
+              <ProblemCard title="Why do my drives feel weak?" href="/start-here?miss=distance" />
+              <ProblemCard title="Why is my contact inconsistent?" href="/start-here?miss=panic" />
             </div>
           </div>
         </section>
 
-        {/* 5. FEATURE EXPLANATION (QUIETLY DIFFERENT) */}
-        <section className="py-24 px-6">
-          <div className="container mx-auto max-w-6xl">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
-              <div>
-                <h2 className="text-3xl md:text-4xl font-bold text-white leading-tight">
-                  Most golfers fix symptoms. <br />That’s why the problems come back.
-                </h2>
-              </div>
-              <div className="space-y-8">
-                <p className="text-xl text-[#8A8A8E] leading-relaxed">
-                  A slice, a hook, or fat contact are not problems by themselves. <br />
-                  They’re results.
-                </p>
-                <p className="text-xl text-[#8A8A8E] leading-relaxed">
-                  Swing Root focuses on the movement pattern causing those results — and addresses that first.
-                </p>
-                <div className="pl-6 border-l-2 border-[#6B9B78]">
-                  <p className="text-xl text-white font-bold">
-                    Fix the cause, and multiple problems often improve at once.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* 6. DRILL PREVIEW (WHAT THEY’LL ACTUALLY DO) */}
-        <section className="py-24 px-6 bg-[#141519]">
-          <div className="container mx-auto max-w-6xl">
-            <div className="mb-12">
-              <h2 className="text-2xl font-bold text-[#8A8A8E] uppercase tracking-wider">What practice looks like.</h2>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <DrillPreviewCard
-                outcome="Fix a Slice"
-                name="Pump Drill"
-                description="Improves downswing sequencing so the club approaches the ball from the correct direction."
-                slug="fix-slice"
-              />
-              <DrillPreviewCard
-                outcome="Fix Fat Iron Shots"
-                name="Divot After Ball Drill"
-                description="Trains your swing low point to occur in front of the ball."
-                slug="fix-fat-shots"
-              />
-              <DrillPreviewCard
-                outcome="Fix Inconsistent Contact"
-                name="Tempo Count Drill"
-                description="Stabilizes timing so the club returns to impact more consistently."
-                slug="fix-inconsistent-contact"
-              />
-            </div>
-          </div>
-        </section>
-
-        {/* 7. PRACTICE PHILOSOPHY SECTION */}
+        {/* 7. MAKE PRACTICE FEEL CALM */}
         <section className="py-32 px-6">
           <div className="container mx-auto max-w-4xl text-center">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-12">This isn’t about collecting drills.</h2>
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-8">Practice doesn’t need to feel overwhelming.</h2>
             <div className="max-w-2xl mx-auto space-y-8">
               <p className="text-xl text-[#8A8A8E] leading-relaxed">
-                Each drill is meant to be practiced for a short period, then re-tested.<br />
-                If it works, you move on.<br />
-                If it doesn’t, the diagnosis adjusts.
+                Swing Root gives you one clear focus at a time.<br />
+                No swing thoughts overload. No conflicting advice.
               </p>
               <p className="text-2xl text-[#6B9B78] font-bold">
-                Progress comes from clarity — not volume.
+                You’ll know what to work on — and when to move on.
               </p>
             </div>
           </div>
         </section>
 
-        {/* 8. APP + WEBSITE RELATIONSHIP */}
+        {/* 8. APP + WEBSITE EXPLAINED */}
         <section className="py-24 px-6 border-t border-white/5">
           <div className="container mx-auto max-w-6xl">
-            <div className="mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold text-white">Built for the way golfers actually learn.</h2>
-            </div>
-
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
               <div className="bg-[#1C1C1E] p-10 rounded-3xl border border-white/5">
                 <h3 className="text-2xl font-bold text-white mb-4">App</h3>
                 <p className="text-[#8A8A8E] text-lg leading-relaxed">
-                  The app analyzes your swing and tells you what to do next.
+                  Tells you what to do next, right now.
                 </p>
               </div>
 
               <div className="glass-panel p-10 rounded-3xl border border-white/10">
                 <h3 className="text-2xl font-bold text-white mb-4">Website</h3>
                 <p className="text-[#8A8A8E] text-lg leading-relaxed">
-                  The website explains why it works, common mistakes, and how to practice effectively.
+                  Explains why it works, common mistakes, and how to practice effectively.
                 </p>
               </div>
             </div>
@@ -266,12 +203,12 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 9. SOFT PRICING & VALUE ANCHOR */}
+        {/* 9. VALUE ANCHOR */}
         <section className="py-24 px-6 bg-[#141519]">
           <div className="container mx-auto max-w-3xl text-center">
             <p className="text-xl md:text-2xl text-white font-medium leading-relaxed">
-              A single lesson can cost over $100.<br />
-              <span className="text-[#8A8A8E]">Swing Root helps you practice with purpose, every time you go to the range.</span>
+              One lesson can cost more than a month of Swing Root.<br />
+              <span className="text-[#8A8A8E]">This helps you make every practice session count.</span>
             </p>
           </div>
         </section>
@@ -325,6 +262,29 @@ export default function Home() {
   );
 }
 
+function PainPoint({ text }: { text: string }) {
+  return (
+    <div className="flex items-center gap-4 bg-[#1C1C1E] p-4 rounded-xl border border-white/5">
+      <div className="w-6 h-6 rounded-full bg-red-500/10 flex items-center justify-center text-red-400">×</div>
+      <span className="text-[#8A8A8E]">{text}</span>
+    </div>
+  )
+}
+
+function StepRow({ number, title, desc, last }: { number: string, title: string, desc: string, last?: boolean }) {
+  return (
+    <div className="flex gap-8 relative z-10">
+      <div className="w-14 h-14 bg-[#1C1C1E] border border-white/10 rounded-full flex items-center justify-center text-xl font-bold text-white shrink-0">
+        {number}
+      </div>
+      <div className="pt-2">
+        <h3 className="text-2xl font-bold text-white mb-2">{title}</h3>
+        <p className="text-[#8A8A8E] text-lg leading-relaxed">{desc}</p>
+      </div>
+    </div>
+  )
+}
+
 function ProblemCard({ title, href }: { title: string; href: string }) {
   return (
     <Link
@@ -336,22 +296,5 @@ function ProblemCard({ title, href }: { title: string; href: string }) {
       </h3>
       <span className="text-sm text-[#8A8A8E] group-hover:text-white transition-colors">Read diagnosis →</span>
     </Link>
-  );
-}
-
-function DrillPreviewCard({ outcome, name, description, slug }: { outcome: string; name: string; description: string; slug: string }) {
-  return (
-    <div className="bg-[#0E0F12] border border-white/10 rounded-2xl p-6 group hover:border-[#6B9B78]/30 transition-colors">
-      <div className="mb-4">
-        <span className="text-xs font-bold text-[#6B9B78] uppercase tracking-wider block mb-1">{outcome}</span>
-        <h3 className="text-xl font-bold text-white">{name}</h3>
-      </div>
-      <p className="text-[#8A8A8E] text-sm leading-relaxed mb-6 h-20">
-        {description}
-      </p>
-      <Link href={`/drills/${slug}`} className="inline-flex items-center text-sm font-bold text-white group-hover:gap-2 transition-all">
-        View drill <span className="ml-1 text-[#6B9B78] opacity-0 group-hover:opacity-100 transition-opacity">→</span>
-      </Link>
-    </div>
   );
 }
