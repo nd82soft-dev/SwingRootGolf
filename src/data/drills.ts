@@ -80,7 +80,8 @@ export const DRILLS: Record<string, DrillData> = {
         secondaryCategories: ["SEQ"],
         level: 4,
         fixesFaults: ["FLT-PTH-SLICE", "FLT-SEQ-OVER_TOP"],
-        rootCausePriority: 1.0
+        rootCausePriority: 1.0,
+        externalLink: "https://www.youtube.com/results?search_query=Pump+Drill+Golf"
     },
     "wall-drill": {
         slug: "wall-drill",
@@ -129,7 +130,8 @@ export const DRILLS: Record<string, DrillData> = {
         secondaryCategories: ["STR"],
         level: 1,
         fixesFaults: ["FLT-SEQ-EARLY_EXT", "FLT-STR-HEEL"],
-        rootCausePriority: 1.3
+        rootCausePriority: 1.3,
+        externalLink: "https://www.youtube.com/results?search_query=Wall+Drill+Early+Extension+Golf"
     },
     "split-grip": {
         slug: "split-grip",
@@ -179,7 +181,8 @@ export const DRILLS: Record<string, DrillData> = {
         secondaryCategories: ["SEQ"],
         level: 1,
         fixesFaults: ["FLT-REL-CAST", "FLT-SEQ-CHICKEN_WING"],
-        rootCausePriority: 1.0
+        rootCausePriority: 1.0,
+        externalLink: "https://www.youtube.com/results?search_query=Split+Grip+Drill+Golf"
     },
     "towel-drill": {
         slug: "towel-drill",
@@ -223,7 +226,8 @@ export const DRILLS: Record<string, DrillData> = {
         secondaryCategories: ["WGT"],
         level: 3,
         fixesFaults: ["FLT-SEQ-DISCONNECT", "FLT-SEQ-CHICKEN_WING"],
-        rootCausePriority: 1.2
+        rootCausePriority: 1.2,
+        externalLink: "https://www.youtube.com/results?search_query=Towel+Under+Arm+Drill+Golf"
     },
     "l-to-l": {
         slug: "l-to-l",
@@ -267,7 +271,8 @@ export const DRILLS: Record<string, DrillData> = {
         secondaryCategories: ["TMP"],
         level: 2,
         fixesFaults: ["FLT-REL-NO_HINGE", "FLT-REL-CAST"],
-        rootCausePriority: 1.0
+        rootCausePriority: 1.0,
+        externalLink: "https://www.youtube.com/results?search_query=L+to+L+Drill+Golf"
     },
     "feet-together": {
         slug: "feet-together",
@@ -312,7 +317,8 @@ export const DRILLS: Record<string, DrillData> = {
         secondaryCategories: ["SEQ"],
         level: 4,
         fixesFaults: ["FLT-WGT-SWAY", "FLT-WGT-SLIDE"],
-        rootCausePriority: 1.3
+        rootCausePriority: 1.3,
+        externalLink: "https://www.youtube.com/results?search_query=Feet+Together+Drill+Golf"
     },
     "impact-bag": {
         slug: "impact-bag",
@@ -356,50 +362,8 @@ export const DRILLS: Record<string, DrillData> = {
         secondaryCategories: ["AOA"],
         level: 4,
         fixesFaults: ["FLT-LP-SCOOP", "FLT-AOA-NEG"],
-        rootCausePriority: 0.8
-    },
-    "gate-drill": {
-        slug: "gate-drill",
-        title: "Gate Drill",
-        category: "Contact",
-        duration: "5 min",
-        videoUrl: "/videos/gate-drill.mp4",
-        clubBadge: "Putter",
-        difficulty: "Advanced",
-        faultsFixed: ["Heel/Toe Strikes", "Push/Pull Putts"],
-        diagnosis: {
-            condition: "This drill is best if you:",
-            symptoms: [
-                "Miss short putts",
-                "Speed control is inconsistent",
-            ],
-            faceVsPath: "Center contact is king in putting."
-        },
-        whyItWorks: [
-            "Immediate feedback on face strike.",
-            "Forces a pure path.",
-        ],
-        steps: [
-            "Place two tees slightly wider than putter head.",
-            "Place ball in middle.",
-            "Stroke putt without hitting tees.",
-        ],
-        checkpoints: ["Putter passes cleanly.", "Ball rolls end over end."],
-        mistakes: ["Tees too wide (too easy)."],
-        progression: [
-            { level: "b", task: "Wide gate." },
-            { level: "i", task: "Narrow gate." },
-            { level: "a", task: "One hand only." },
-        ],
-        contraindications: ["None."],
-        prescription: ["20 made putts in a row."],
-        // Normalized Data
-        id: "DRL-STR-PUTT-GATE-002", // Renamed from gate-putting to avoid conflict
-        primaryCategory: "STR",
-        secondaryCategories: ["PTH"],
-        level: 4,
-        fixesFaults: ["FLT-STR-TOE", "FLT-STR-HEEL"],
-        rootCausePriority: 0.8
+        rootCausePriority: 0.8,
+        externalLink: "https://www.youtube.com/results?search_query=Impact+Bag+Drill+Golf"
     },
     "tempo-beats": {
         slug: "tempo-beats",
@@ -441,7 +405,8 @@ export const DRILLS: Record<string, DrillData> = {
         secondaryCategories: ["SEQ"],
         level: 3,
         fixesFaults: ["FLT-TMP-RUSH", "FLT-TMP-JERKY"],
-        rootCausePriority: 1.2
+        rootCausePriority: 1.2,
+        externalLink: "https://www.youtube.com/results?search_query=Golf+Tempo+Drills+Beats"
     },
     // --- NEW MASTER SYSTEM DRILLS ---
     "split-hand-drill": {
