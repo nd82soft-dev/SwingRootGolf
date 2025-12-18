@@ -45,7 +45,7 @@ export default function Home() {
             </h1>
             <p className="text-xl md:text-2xl text-[#8A8A8E] leading-relaxed mb-10 max-w-2xl mx-auto">
               Most swing problems come from one underlying cause.<br />
-              Swing Root helps you find it — and fix it.
+              SwingRoot helps you find it — and fix it.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
               <Link
@@ -168,7 +168,7 @@ export default function Home() {
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-8">Practice doesn’t need to feel overwhelming.</h2>
             <div className="max-w-2xl mx-auto space-y-8">
               <p className="text-xl text-[#8A8A8E] leading-relaxed">
-                Swing Root gives you one clear focus at a time.<br />
+                SwingRoot gives you one clear focus at a time.<br />
                 No swing thoughts overload. No conflicting advice.
               </p>
               <p className="text-2xl text-[#6B9B78] font-bold">
@@ -208,7 +208,7 @@ export default function Home() {
           <div className="container mx-auto max-w-3xl text-center">
             <p className="text-xl md:text-2xl text-white font-medium leading-relaxed">
               Perfect for practice between lessons.<br />
-              <span className="text-[#8A8A8E]">Swing Root helps you maintain the right feel and focus, so you get the most out of every coaching session.</span>
+              <span className="text-[#8A8A8E]">SwingRoot provides feedback outside of lessons to help you maintain the right feel, so you get the most out of every coaching session.</span>
             </p>
           </div>
         </section>
