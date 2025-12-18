@@ -131,7 +131,7 @@ export default async function DrillDetail({ params }: { params: Promise<{ slug: 
                             <section>
                                 <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
                                     <span className="w-8 h-8 rounded bg-white/10 flex items-center justify-center text-sm">▶</span>
-                                    Demonstration
+                                    Find Demonstrations
                                 </h2>
                                 <div className="aspect-video w-full bg-black rounded-2xl border border-white/10 flex items-center justify-center relative overflow-hidden group">
                                     {data.externalLink ? (
@@ -145,7 +145,7 @@ export default async function DrillDetail({ params }: { params: Promise<{ slug: 
                                                 <div className="w-16 h-16 rounded-full bg-[#FF0000] flex items-center justify-center mx-auto mb-4 hover:scale-110 transition-transform shadow-lg">
                                                     <div className="w-0 h-0 border-t-8 border-t-transparent border-l-[16px] border-l-white border-b-8 border-b-transparent ml-1"></div>
                                                 </div>
-                                                <p className="text-white font-bold text-lg">Watch on YouTube</p>
+                                                <p className="text-white font-bold text-lg">Find demonstrations on YouTube</p>
                                                 <p className="text-white/60 text-sm mt-1">Opens in new tab</p>
                                             </div>
                                         </a>
